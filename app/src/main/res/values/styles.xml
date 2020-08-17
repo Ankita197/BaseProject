@@ -1,0 +1,52 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blue_3866ab</item>
+        <item name="colorPrimaryDark">@color/blue_3866ab</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppThemeSplash" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blue_3866ab</item>
+        <item name="colorPrimaryDark">@color/blue_3866ab</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="MyTextViewHeader1" parent="AppTheme">
+        <item name="android:textSize">@dimen/_24ssp</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textColor">@color/blue_3866ab</item>
+    </style>
+
+    <style name="MyHintText" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorHintText</item>
+        <item name="hintTextColor">@color/colorHintText</item>
+    </style>
+
+    <style name="MyEditText" parent="Theme.MaterialComponents.Light">
+        <item name="colorControlNormal">@color/colorHintText</item>
+        <item name="colorControlActivated">@color/colorEditText</item>
+        <item name="android:textColor">@color/colorEditText</item>
+        <item name="hintTextColor">@color/colorHintText</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textColorHint">@color/colorHintText</item>
+    </style>
+
+    <style name="MyTextViewBlueBody1" parent="AppTheme">
+        <item name="android:textColor">@color/blue_3866ab</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+    </style>
+
+    <style name="MyBlueButton" parent="AppTheme">
+        <item name="android:background">@drawable/bg_blue_button</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="fontFamily">@font/montserrat_semibold</item>
+    </style>
+
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="blue_3866ab">#00a79d</color>
+    <color name="colorHintText">#9d9d9d</color>
+
+    <style name="MyErrorText" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorHintText</item>
+        <item name="errorTextColor">@color/colorHintText</item>
+    </style>
+
+    <color name="colorEditText">#333333</color>
+</resources>
