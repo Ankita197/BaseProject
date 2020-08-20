@@ -6,6 +6,7 @@ import com.app.kujacustomerapp.ui.account.forgotpassword.ForgotPasswordFragment
 import com.app.kujacustomerapp.ui.account.forgotpassword.PasswordSendSuccessFragment
 import com.app.kujacustomerapp.ui.account.login.LoginFragment
 import com.app.kujacustomerapp.ui.account.register.RegisterFragment
+import com.app.kujacustomerapp.ui.account.register.SequrityQuestionFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -31,5 +32,9 @@ abstract class AccountFragmentsModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeChangePasswordFragment(): ChangePasswordFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeSecurityQuestionFragment(): SequrityQuestionFragment
 
 }

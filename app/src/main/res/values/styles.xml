@@ -35,6 +35,10 @@
         <item name="android:fontFamily">@font/montserrat_regular</item>
         <item name="android:textColorHint">@color/colorHintText</item>
     </style>
+    <style name="MyEditTextDatepicker" parent="Theme.MaterialComponents.Light">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textColorHint">@color/colorHintText</item>
+        <item name="android:drawableEnd">@drawable/icon_date_range</item></style>
 
     <style name="MyTextViewBlueBody1" parent="AppTheme">
         <item name="android:textColor">@color/blue_3866ab</item>

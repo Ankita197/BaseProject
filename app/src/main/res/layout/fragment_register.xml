@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools2="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/apk/res/android"
+    tools2:ignore="NamespaceTypo">
 
     <data>
 
@@ -10,39 +12,26 @@
             type="com.app.kujacustomerapp.ui.account.register.RegisterViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideLineBegin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/_16sdp" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideLineEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/_16sdp" />
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvSignUpLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textColor="#00a79d"
+                app:layout_constraintBottom_toTopOf="@+id/tvSignUpDescription"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="@dimen/_26sdp"
                 style="@style/MyTextViewHeader1"
-                app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/_16sdp"
                 tools:text="Sign Up"
                 />
             <com.google.android.material.textview.MaterialTextView
@@ -54,26 +43,63 @@
                 android:textColor="#9d9d9d"
                 android:lineSpacingExtra="4sp"
                 android:fontFamily="@font/montserrat_regular"
-                app:layout_constraintStart_toStartOf="@+id/guideLineBegin"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/_16sdp"
                 app:layout_constraintTop_toBottomOf="@+id/tvSignUpLabel"
+                app:layout_constraintBottom_toTopOf="@+id/innerLayout"
                 tools:text="Sign up to join"
                 />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/innerLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSignUpDescription"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:fillViewport="true"
+                android:id="@+id/nestedScrollView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideLineBegin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/_16sdp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideLineEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/_16sdp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilName"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_24sdp"
+                android:layout_height="wrap_content"
                 android:textColorHint="@color/colorHintText"
                 app:boxBackgroundMode="none"
+                app:errorText="@{viewModel.nameError}"
                 app:errorEnabled="false"
                 app:errorTextAppearance="@style/MyErrorText"
                 app:hintTextAppearance="@style/MyHintText"
                 app:hintTextColor="@color/colorHintText"
                 app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
                 app:layout_constraintStart_toStartOf="@id/guideLineBegin"
-                app:layout_constraintTop_toBottomOf="@id/tvSignUpLabel">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtName"
@@ -84,6 +110,7 @@
                     android:maxLength="50"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:text="@={viewModel.name}"
                     android:textColorHint="@color/colorHintText"
                     android:theme="@style/MyEditText" />
 
@@ -95,9 +122,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:textColorHint="@color/colorHintText"
-                app:boxBackgroundMode="none"
                 app:errorEnabled="false"
-                android:focusable="false"
+                app:errorText="@{viewModel.dateOfBirthError}"
+                app:boxBackgroundColor="@null"
+                app:errorIconDrawable="@null"
                 app:errorTextAppearance="@style/MyErrorText"
                 app:hintTextAppearance="@style/MyHintText"
                 app:hintTextColor="@color/colorHintText"
@@ -111,9 +139,10 @@
                     android:layout_height="match_parent"
                     android:hint="@string/date_of_birth"
                     android:inputType="textEmailAddress"
-                    android:singleLine="true"
+                    android:focusable="false"
                     android:paddingStart="@dimen/space_0dp"
                     android:paddingEnd="@dimen/_8sdp"
+                    android:text="@={viewModel.dateOfBirth}"
                     android:fontFamily="@font/montserrat_regular"
                     android:drawableEnd="@drawable/icon_date_range"
                     android:textColorHint="@color/colorHintText" />
@@ -126,6 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:textColorHint="@color/colorHintText"
+                app:errorText="@{viewModel.phoneError}"
                 app:boxBackgroundMode="none"
                 app:errorEnabled="false"
                 app:errorTextAppearance="@style/MyErrorText"
@@ -144,6 +174,7 @@
                     android:maxLength="10"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:text="@={viewModel.phone}"
                     android:textColorHint="@color/colorHintText"
                     android:theme="@style/MyEditText" />
 
@@ -154,6 +185,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
+                app:errorText="@{viewModel.emailError}"
                 android:textColorHint="@color/colorHintText"
                 app:boxBackgroundMode="none"
                 app:errorEnabled="false"
@@ -170,6 +202,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/email_address"
                     android:inputType="textEmailAddress"
+                    android:text="@={viewModel.email}"
                     android:maxLength="50"
                     android:maxLines="1"
                     android:singleLine="true"
@@ -183,6 +216,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
+                app:errorText="@{viewModel.postalCodeError}"
                 android:textColorHint="@color/colorHintText"
                 app:boxBackgroundMode="none"
                 app:errorEnabled="false"
@@ -197,7 +231,8 @@
                     android:id="@+id/edtPostalCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/enter_your_name"
+                    android:hint="Postal Code"
+                    android:text="@={viewModel.postalCode}"
                     android:inputType="textEmailAddress"
                     android:maxLength="50"
                     android:maxLines="1"
@@ -215,6 +250,7 @@
                 android:textColorHint="@color/colorHintText"
                 app:boxBackgroundMode="none"
                 app:errorEnabled="false"
+                app:errorText="@{viewModel.nationalIdError}"
                 app:errorTextAppearance="@style/MyErrorText"
                 app:hintTextAppearance="@style/MyHintText"
                 app:hintTextColor="@color/colorHintText"
@@ -226,7 +262,8 @@
                     android:id="@+id/edtNationalId"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/enter_your_name"
+                    android:hint="National ID"
+                    android:text="@={viewModel.nationalId}"
                     android:inputType="textEmailAddress"
                     android:maxLength="50"
                     android:maxLines="1"
@@ -236,47 +273,76 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilCountry"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_24sdp"
-                android:textColorHint="@color/colorHintText"
-                app:boxBackgroundMode="none"
-                app:errorEnabled="false"
-                app:errorTextAppearance="@style/MyErrorText"
-                app:hintTextAppearance="@style/MyHintText"
-                app:hintTextColor="@color/colorHintText"
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:backgroundTint="@null"
+                android:id="@+id/spinnerCountry"
                 app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
                 app:layout_constraintStart_toStartOf="@id/guideLineBegin"
-                app:layout_constraintTop_toBottomOf="@id/tilNationalId">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtCountry"
+                app:layout_constraintTop_toBottomOf="@id/tilNationalId"
+                app:ms_hint="Country"
+                app:ms_multiline="true"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                app:ms_floatingLabelText="Country"
+                app:ms_enableFloatingLabel="true"
+                app:ms_floatingLabelColor="@color/colorHintText"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUploadsDocuments"
+                    android:backgroundTint="@android:color/white"
+                    android:text="Upload Identification Documents"
+                    android:fontFamily="@font/montserrat_semibold"
+                    app:strokeWidth="@dimen/space_1dp"
+                    app:strokeColor="#27aae1"
+                    android:textColor="#27aae1"
+                    android:textAllCaps="false"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    app:cornerRadius="@dimen/_20sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerCountry"
+                    app:layout_constraintBottom_toTopOf="@+id/rvItemDocuments"
+                    app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+                    android:layout_width="@dimen/space_0dp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_height="wrap_content"/>
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/enter_your_name"
-                    android:inputType="textEmailAddress"
-                    android:maxLength="50"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColorHint="@color/colorHintText"
-                    android:theme="@style/MyEditText" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rvItemDocuments"
 
-            </com.google.android.material.textfield.TextInputLayout>
-
+                    app:layout_constraintStart_toStartOf="@+id/guideLineBegin"
+                    app:layout_constraintEnd_toEndOf="@+id/guideLineEnd"
+                    app:layout_constraintTop_toBottomOf="@+id/btnUploadsDocuments"
+                    app:layout_constraintBottom_toTopOf="@+id/btnSignUP"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnSignUP"
                 style="@style/MyBlueButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_16sdp"
                 android:text="@string/sign_up"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/rvItemDocuments"
                 app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
                 app:layout_constraintStart_toStartOf="@id/guideLineBegin" />
+<!--                android:onClick="@{() -> viewModel.onSignUpClicked()}"-->
+                <View
+                    android:id="@+id/view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnSignUP"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </androidx.core.widget.NestedScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -299,6 +365,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
 
 </layout>

@@ -140,6 +140,7 @@ open class LoginFragment : BaseBindingFragment<FragmentLoginBinding>() {
 
     private fun navigateToDashBoard() {
         startActivity(Intent(requireContext(), DashboardActivity::class.java))
+        activity?.finish()
     }
 
     private fun initLogin() {

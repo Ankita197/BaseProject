@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.app.kujacustomerapp.ui.account.register.RegisterViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/apk/res/android"
+    xmlns:tools2="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools2:ignore="NamespaceTypo">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/_16sdp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/_16sdp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSecurityQuestion"
+        style="@style/MyTextViewHeader1"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_26sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        tools:text="Security Question"
+        />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSecurityQuestionDescription"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_17sdp"
+        app:layout_constraintStart_toStartOf="@+id/guideLineBegin"
+        app:layout_constraintEnd_toEndOf="@+id/guideLineEnd"
+        app:layout_constraintTop_toBottomOf="@+id/tvSecurityQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="#9d9d9d"
+        android:lineSpacingExtra="4sp"
+        android:layout_marginTop="@dimen/_3sdp"
+        tools:text="Enter Your Security Question and it's Answer"
+        />
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:backgroundTint="@null"
+        android:id="@+id/spinnerSecurityQuestion"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/tvSecurityQuestionDescription"
+        app:ms_hint="Security Question"
+        app:ms_multiline="true"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        app:ms_floatingLabelText="Security Question"
+        app:ms_enableFloatingLabel="true"
+        app:ms_floatingLabelColor="@color/colorHintText"
+        android:layout_marginTop="@dimen/_120sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAnswer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/spinnerSecurityQuestion"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Answer"
+            android:inputType="text"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSubmit"
+        style="@style/MyBlueButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:textAlignment="center"
+        android:text="Submit"
+        app:layout_constraintTop_toBottomOf="@+id/tilAnswer"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin" />
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="@{viewModel.showProgress?View.VISIBLE:View.GONE}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

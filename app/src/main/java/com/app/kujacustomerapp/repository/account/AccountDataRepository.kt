@@ -1,19 +1,21 @@
 package com.app.kujacustomerapp.repository.account
 
+import android.annotation.SuppressLint
+import android.util.Log
+import com.app.kujacustomerapp.R
 import com.app.kujacustomerapp.interfaces.Enqueue
 import com.app.kujacustomerapp.persistance.AccountSharedPrefs
 import com.app.kujacustomerapp.remote.AccountApi
 import com.app.kujacustomerapp.remote.base.BaseResponse
 import com.app.kujacustomerapp.remote.base.CommonRetrofit
-import com.app.kujacustomerapp.remote.entity.request.account.ChangePasswordRequest
-import com.app.kujacustomerapp.remote.entity.request.account.ForgotPasswordRequest
-import com.app.kujacustomerapp.remote.entity.request.account.LoginRequest
-import com.app.kujacustomerapp.remote.entity.request.account.SignUpRequest
+import com.app.kujacustomerapp.remote.entity.request.account.*
 import com.app.kujacustomerapp.remote.entity.response.account.ForgotPasswordResponse
+import com.app.kujacustomerapp.remote.entity.response.account.SecurityQuestionResponse
 import com.app.kujacustomerapp.remote.entity.response.account.UserData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.Boolean as Boolean
 
@@ -67,19 +69,19 @@ class AccountDataRepository @Inject constructor(accountSharedPrefs: AccountShare
 
     override fun callRegister(
         registerRequest: SignUpRequest?,
-        eneque: Enqueue<BaseResponse<UserData?>?>?
+        eneque: Enqueue<Boolean?>?
     ) {
         getNetworkService()?.callRegister(registerRequest)
-            ?.enqueue(object : Callback<BaseResponse<UserData?>?> {
+            ?.enqueue(object : Callback<BaseResponse<Int?>?> {
                 override fun onResponse(
-                    call: Call<BaseResponse<UserData?>?>,
-                    response: Response<BaseResponse<UserData?>?>
+                    call: Call<BaseResponse<Int?>?>,
+                    response: Response<BaseResponse<Int?>?>
                 ) {
-                    eneque?.onSuccess(call, response.body())
+                    eneque?.onSuccess(call, response.body()?.status)
                 }
 
                 override fun onFailure(
-                    call: Call<BaseResponse<UserData?>?>,
+                    call: Call<BaseResponse<Int?>?>,
                     t: Throwable
                 ) {
                     eneque?.onError(call, t)
@@ -124,6 +126,27 @@ class AccountDataRepository @Inject constructor(accountSharedPrefs: AccountShare
                 eneque?.onSuccess(call, response.body()?.status)
             }
 
+        })
+    }
+
+    override fun callGetSecurityQuestion(
+        securityQuestionRequest: SecurityQuestionRequest,
+        eneque: Enqueue<SecurityQuestionResponse?>?
+    ) {
+        getNetworkService()?.callGetSecurityQuestion(securityQuestionRequest)?.enqueue(object :Callback<BaseResponse<SecurityQuestionResponse?>?>{
+            override fun onFailure(
+                call: Call<BaseResponse<SecurityQuestionResponse?>?>,
+                t: Throwable
+            ) {
+                eneque?.onError(call,t)
+            }
+
+            override fun onResponse(
+                call: Call<BaseResponse<SecurityQuestionResponse?>?>,
+                response: Response<BaseResponse<SecurityQuestionResponse?>?>
+            ) {
+                eneque?.onSuccess(call,response.body()?.data)
+            }
         })
     }
 

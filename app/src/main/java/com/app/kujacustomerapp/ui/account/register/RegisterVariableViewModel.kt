@@ -53,6 +53,62 @@ open class RegisterVariableViewModel(application: Application) :
             notifyPropertyChanged(BR.password)
         }
 
+    var dateOfBirth: String? = null
+        @Bindable get() = field
+        set(dateOfBirth) {
+            field = dateOfBirth
+            notifyPropertyChanged(BR.dateOfBirth)
+        }
+
+    @StringRes
+    var dateOfBirthError: Int? = null
+        @Bindable get() = field
+        set(dateOfBirthError) {
+            field = dateOfBirthError
+            notifyPropertyChanged(BR.dateOfBirthError)
+        }
+
+    var phone: String? = null
+        @Bindable get() = field
+        set(phone) {
+            field = phone
+            notifyPropertyChanged(BR.phone)
+        }
+
+    @StringRes
+    var phoneError: Int? = null
+        @Bindable get() = field
+        set(phoneError) {
+            field = phoneError
+            notifyPropertyChanged(BR.phoneError)
+        }
+    var postalCode: String? = null
+        @Bindable get() = field
+        set(postalCode) {
+            field = postalCode
+            notifyPropertyChanged(BR.postalCode)
+        }
+
+    @StringRes
+    var postalCodeError: Int? = null
+        @Bindable get() = field
+        set(postalCodeError) {
+            field = postalCodeError
+            notifyPropertyChanged(BR.postalCodeError)
+        }
+    var nationalId: String? = null
+        @Bindable get() = field
+        set(nationalId) {
+            field = nationalId
+            notifyPropertyChanged(BR.nationalId)
+        }
+    @StringRes
+    var nationalIdError: Int? = null
+        @Bindable get() = field
+        set(nationalIdError) {
+            field = nationalIdError
+            notifyPropertyChanged(BR.nationalIdError)
+        }
     @StringRes
     var passwordError: Int? = null
         @Bindable get() = field

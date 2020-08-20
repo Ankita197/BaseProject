@@ -24,4 +24,8 @@
     <string name="full_name">Full Name</string>
     <string name="date_of_birth">Date Of Birth</string>
     <string name="email_address">Email Address</string>
+    <string name="please_enter_date_of_birth">please enter date of Birth</string>
+    <string name="enter_postal_code">please enter posatal code</string>
+    <string name="enter_natonal_id">please enter national Id</string>
+    <string name="response">response</string>
 </resources>
