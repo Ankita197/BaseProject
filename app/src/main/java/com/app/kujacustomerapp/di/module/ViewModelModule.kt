@@ -10,6 +10,7 @@ import com.app.kujacustomerapp.ui.account.login.LoginViewModel
 import com.app.kujacustomerapp.ui.account.register.RegisterViewModel
 import com.app.kujacustomerapp.ui.base.ViewModelFactory
 import com.app.kujacustomerapp.ui.dashboard.DashboardViewModel
+import com.app.kujacustomerapp.ui.dashboard.transaction_history.TransactionViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -49,5 +50,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ChangePasswordViewModel::class)
     abstract fun bindChangePasswordViewModel(loginViewModel: ChangePasswordViewModel?): ViewModel?
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TransactionViewModel::class)
+    abstract fun bindTransactionViewModel(transactionViewModel: TransactionViewModel?): ViewModel?
 
 }

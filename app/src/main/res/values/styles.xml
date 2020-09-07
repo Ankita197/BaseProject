@@ -53,4 +53,7 @@
         <item name="fontFamily">@font/montserrat_semibold</item>
     </style>
 
+    <style name="NavigationView" parent="Theme.MaterialComponents.Light" >
+        <item name="fontFamily">@font/montserrat_regular</item>
+    </style>
 </resources>

@@ -2,6 +2,7 @@ package com.app.kujacustomerapp.di.module.fragmentmodule
 
 import com.app.kujacustomerapp.di.scope.FragmentScoped
 import com.app.kujacustomerapp.ui.dashboard.DashboardFragment
+import com.app.kujacustomerapp.ui.dashboard.transaction_history.TransactionHistoryFragment
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -12,5 +13,9 @@ abstract class DashBoardFragmentModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeDashboardFragment(): DashboardFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeTransactionHistoryFragment(): TransactionHistoryFragment
 
 }

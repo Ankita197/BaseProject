@@ -5,84 +5,358 @@
     <data>
 
         <import type="android.view.View" />
-
+        <variable
+            name="user"
+            type="com.app.kujacustomerapp.remote.entity.response.account.User" />
         <variable
             name="viewModel"
             type="com.app.kujacustomerapp.ui.dashboard.DashboardViewModel" />
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/_16sdp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvUser"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/_16sdp" />
+    <include layout="@layout/nav_header"
+        android:id="@+id/header"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/header">
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        <FrameLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="@{viewModel.showProgress?View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:hint="Name"
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:text="@{user.createdByName}"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
 
-            <androidx.core.widget.ContentLoadingProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-        </FrameLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <RelativeLayout
-            android:id="@+id/relLoadingMore"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/tilName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPhone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/white"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:visibility="@{viewModel.loadMore?View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_height="match_parent"
+            android:hint="Phone Number"
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:text="@{user.mobileNumber}"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
 
-            <ProgressBar
-                android:id="@+id/loadMore"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:background="@android:color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/tilPhone">
 
-            <TextView
-                android:id="@+id/tvLoading"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Email Address"
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:text="@{user.emailAddress}"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDateOfBirth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/tilEmail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtDateOfBirth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Date Of Birth"
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textview.MaterialTextView
+        android:text="Gender"
+        android:id="@+id/tvGendr"
+        android:layout_marginTop="@dimen/_19sdp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="@color/colorHintText"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/tilDateOfBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <RadioGroup
+        android:id="@+id/radioGender"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/tvGendr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+            <RadioButton
+                android:text="Male"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="12dp"
-                android:layout_toEndOf="@+id/loadMore"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="@string/loading"
-                android:textColor="@android:color/black"
-                android:textSize="16dp"
-                android:visibility="gone" />
+                android:layout_height="wrap_content"/>
+        <RadioButton
+            android:text="Female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RadioGroup>
 
-        </RelativeLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/radioGender">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Address"
+            android:inputType="number"
+            android:maxLength="50"
+            android:maxLines="2"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/tilAddress">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtCity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="City"
+            android:inputType="number"
+            android:maxLength="50"
+            android:maxLines="2"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/tilCity">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtState"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Address"
+            android:inputType="number"
+            android:maxLength="50"
+            android:maxLines="2"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilZipcode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/tilState">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtZipcode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Zip Code"
+            android:inputType="number"
+            android:maxLength="50"
+            android:maxLines="2"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:backgroundTint="@null"
+        android:id="@+id/spinnerCountry"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        app:layout_constraintTop_toBottomOf="@id/tilZipcode"
+        app:ms_hint="Country"
+        app:ms_multiline="true"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        app:ms_floatingLabelText="Country"
+        app:ms_enableFloatingLabel="true"
+        app:ms_floatingLabelColor="@color/colorHintText"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnChangePassword"
+        android:backgroundTint="@android:color/white"
+        android:text="Change Password"
+        android:fontFamily="@font/montserrat_semibold"
+        app:strokeWidth="@dimen/space_1dp"
+        app:strokeColor="#27aae1"
+        android:textColor="#27aae1"
+        android:textAllCaps="false"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        app:cornerRadius="@dimen/_20sdp"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCountry"
+        app:layout_constraintBottom_toTopOf="@+id/btnChangeSecurityQuestion"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        android:layout_width="@dimen/space_0dp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnChangeSecurityQuestion"
+        android:backgroundTint="@android:color/white"
+        android:text="Change Security Question"
+        android:fontFamily="@font/montserrat_semibold"
+        app:strokeWidth="@dimen/space_1dp"
+        app:strokeColor="#27aae1"
+        android:textColor="#27aae1"
+        android:textAllCaps="false"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        app:cornerRadius="@dimen/_20sdp"
+        app:layout_constraintTop_toBottomOf="@+id/btnChangePassword"
+        app:layout_constraintBottom_toTopOf="@+id/btnSave"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin"
+        android:layout_width="@dimen/space_0dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSave"
+        style="@style/MyBlueButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeSecurityQuestion"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

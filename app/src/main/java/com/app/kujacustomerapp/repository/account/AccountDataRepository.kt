@@ -1,8 +1,5 @@
 package com.app.kujacustomerapp.repository.account
 
-import android.annotation.SuppressLint
-import android.util.Log
-import com.app.kujacustomerapp.R
 import com.app.kujacustomerapp.interfaces.Enqueue
 import com.app.kujacustomerapp.persistance.AccountSharedPrefs
 import com.app.kujacustomerapp.remote.AccountApi
@@ -12,14 +9,13 @@ import com.app.kujacustomerapp.remote.entity.request.account.*
 import com.app.kujacustomerapp.remote.entity.response.account.ForgotPasswordResponse
 import com.app.kujacustomerapp.remote.entity.response.account.SecurityQuestionResponse
 import com.app.kujacustomerapp.remote.entity.response.account.UserData
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import timber.log.Timber
 import javax.inject.Inject
-import kotlin.Boolean as Boolean
 
-class AccountDataRepository @Inject constructor(accountSharedPrefs: AccountSharedPrefs) :
+class AccountDataRepository @Inject constructor(var  accountSharedPrefs: AccountSharedPrefs) :
     CommonRetrofit<AccountApi>(), AccountRepository {
 
     override val restClass: Class<AccountApi>
@@ -33,6 +29,9 @@ class AccountDataRepository @Inject constructor(accountSharedPrefs: AccountShare
                     response: Response<BaseResponse<UserData?>?>
                 ) {
                     eneque?.onSuccess(call, response.body()?.status)
+                    val gson = Gson()
+                    val data:String=gson.toJson(response.body()?.data)
+                    accountSharedPrefs.userData=data
                 }
 
                 override fun onFailure(
@@ -78,6 +77,7 @@ class AccountDataRepository @Inject constructor(accountSharedPrefs: AccountShare
                     response: Response<BaseResponse<Int?>?>
                 ) {
                     eneque?.onSuccess(call, response.body()?.status)
+
                 }
 
                 override fun onFailure(

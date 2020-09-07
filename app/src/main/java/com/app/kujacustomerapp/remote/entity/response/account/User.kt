@@ -7,4 +7,13 @@ class User {
     @SerializedName("emailAddress")
     var emailAddress: String? = null
 
+    @SerializedName("createdByName")
+    var createdByName: String? = null
+
+    @SerializedName("mobileNumber")
+    var mobileNumber: String? = null
+
+    @SerializedName("countryName")
+    var countryName: String? = null
+
 }

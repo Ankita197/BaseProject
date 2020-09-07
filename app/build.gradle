@@ -102,4 +102,7 @@ dependencies {
 
     //material spinner
     implementation 'com.github.ganfra:material-spinner:2.0.0'
+
+    //circle image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

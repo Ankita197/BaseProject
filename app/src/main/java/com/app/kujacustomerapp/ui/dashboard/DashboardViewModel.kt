@@ -22,49 +22,6 @@ class DashboardViewModel @Inject constructor(
 
     var pageNumber = 0
 
-    fun getAllStudent() {
-        if (pageNumber > 1) {
-            loadMore = true
-        } else {
-            loadMore = false
-            showProgress = true
-        }
-        dashboardRepository.callGetAllStudentData(pageNumber, 20, object :
-            Enqueue<DashboardData> {
-            override fun onSuccess(
-                call: Call<*>,
-                response: DashboardData
-            ) {
-                pageNumber += response.users?.size!!
-                showProgress = false
-                loadMore = false
-                successLiveData.postValue(Event(response))
-            }
-
-            override fun onError(
-                call: Call<*>,
-                t: Throwable
-            ) {
-                loadMore = false
-                showProgress = false
-                if (t is AppHttpException) {
-                    errorLiveData.postValue(
-                        Event(
-                            t.errorResponse.message
-                        )
-                    )
-                } else {
-                    errorLiveData.postValue(
-                        Event(
-                            t!!.localizedMessage
-                        )
-                    )
-                }
-            }
-
-        })
-    }
-
 
 
 }

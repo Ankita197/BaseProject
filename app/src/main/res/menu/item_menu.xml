@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+    <item android:id="@+id/profile"
+        android:icon="@drawable/group"
+        android:title="Profile" />
+    <item android:id="@+id/transactionHistory"
+        android:icon="@drawable/transaction"
+        android:title="Transaction History" />
+    <item android:id="@+id/checkBalance"
+        android:icon="@drawable/balance"
+        android:title="Check Balance" />
+    <item android:id="@+id/recorderRfid"
+        android:icon="@drawable/rfid"
+        android:title="Recorder RFID" />
+    <item android:id="@+id/transferMoney"
+        android:icon="@drawable/transfer_money"
+        android:title="Transfer Money" />
+    <item android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="Logout" />
+</group>
+
+</menu>

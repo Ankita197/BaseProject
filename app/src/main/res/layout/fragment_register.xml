@@ -46,28 +46,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/_16sdp"
                 app:layout_constraintTop_toBottomOf="@+id/tvSignUpLabel"
-                app:layout_constraintBottom_toTopOf="@+id/innerLayout"
                 tools:text="Sign up to join"
                 />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/innerLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSignUpDescription"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+
 
 
             <androidx.core.widget.NestedScrollView
                 android:fillViewport="true"
                 android:id="@+id/nestedScrollView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSignUpDescription"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -124,8 +117,7 @@
                 android:textColorHint="@color/colorHintText"
                 app:errorEnabled="false"
                 app:errorText="@{viewModel.dateOfBirthError}"
-                app:boxBackgroundColor="@null"
-                app:errorIconDrawable="@null"
+               app:boxBackgroundMode="none"
                 app:errorTextAppearance="@style/MyErrorText"
                 app:hintTextAppearance="@style/MyHintText"
                 app:hintTextColor="@color/colorHintText"
@@ -140,15 +132,21 @@
                     android:hint="@string/date_of_birth"
                     android:inputType="textEmailAddress"
                     android:focusable="false"
-                    android:paddingStart="@dimen/space_0dp"
-                    android:paddingEnd="@dimen/_8sdp"
                     android:text="@={viewModel.dateOfBirth}"
+                    android:theme="@style/MyEditText"
                     android:fontFamily="@font/montserrat_regular"
-                    android:drawableEnd="@drawable/icon_date_range"
-                    android:textColorHint="@color/colorHintText" />
+                    android:textColorHint="@color/colorHintText"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
-
+        <ImageView
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:padding="@dimen/_5sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_date_range"
+            app:layout_constraintEnd_toEndOf="@+id/tilDateOfBirth"
+            app:layout_constraintBottom_toBottomOf="@+id/tilDateOfBirth"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilPhoneNo"
                 android:layout_width="0dp"
@@ -342,7 +340,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.core.widget.NestedScrollView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

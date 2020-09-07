@@ -28,4 +28,6 @@
     <string name="enter_postal_code">please enter posatal code</string>
     <string name="enter_natonal_id">please enter national Id</string>
     <string name="response">response</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
 </resources>

@@ -1,25 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="url"
-            type="String" />
+            name="transactionData"
+            type="com.app.kujacustomerapp.remote.entity.response.dashboard.TransactionData" />
     </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/postImage"
+
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:padding="3dp"
-            android:scaleType="fitXY"
-            app:loadImageInIv="@{url}" />
-    </LinearLayout>
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tvBusinessName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@{transactionData.businessName}"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:lineSpacingExtra="4sp"
+                tools:text="Business name lorem ipsum text"
+                />
+                <ImageView
+                    android:id="@+id/ivDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBusinessName"
+                    android:src="@drawable/icon_date_range"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:lineSpacingExtra="6sp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:fontFamily="@font/montserrat_regular"
+                    app:layout_constraintStart_toEndOf="@+id/ivDate"
+                    app:layout_constraintTop_toTopOf="@+id/ivDate"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivDate"
+                    tools:text="02/03/2020"
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTransactionAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    app:layout_constraintStart_toEndOf="@+id/tvDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBusinessName"
+                    android:text="@{transactionData.amount.toString()}"
+
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/_14sdp"
+                    android:textColor="#333333"
+                    android:lineSpacingExtra="4sp"
+                    tools:text="£ 100"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    app:layout_constraintStart_toEndOf="@id/tvTransactionAmount"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvTransactionAmount"
+                    app:layout_constraintTop_toTopOf="@+id/tvTransactionAmount"
+                    android:insetTop="@dimen/space_0dp"
+                    android:insetBottom="@dimen/space_0dp"
+                    android:layout_marginStart="@dimen/_34sdp"
+                    android:paddingTop="@dimen/space_0dp"
+                    android:paddingBottom="@dimen/space_0dp"
+                    android:text="Success"
+                    app:cornerRadius="@dimen/_10sdp"
+                    android:textAllCaps="false"
+                    android:backgroundTint="#8fd475"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
 </layout>
