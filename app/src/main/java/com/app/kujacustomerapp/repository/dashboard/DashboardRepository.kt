@@ -1,8 +1,10 @@
 package com.app.kujacustomerapp.repository.dashboard
 
 import com.app.kujacustomerapp.interfaces.Enqueue
+import com.app.kujacustomerapp.remote.entity.request.account.ReIssueRequest
 import com.app.kujacustomerapp.remote.entity.response.dashboard.DashboardData
 import com.app.kujacustomerapp.remote.entity.response.dashboard.TransactionData
+import com.app.kujacustomerapp.remote.entity.response.rfid.DeviceData
 
 interface DashboardRepository {
     fun callGetAllStudentData(
@@ -15,5 +17,15 @@ interface DashboardRepository {
         startDate: String,
         endDate:String,
         eneque: Enqueue<ArrayList<TransactionData>>?
+    )
+
+    fun callGetDeviceData(
+        userId: Int,
+        eneque: Enqueue<ArrayList<DeviceData>>?
+    )
+
+    fun callReOderingRfid(
+        reIssueRequest: ReIssueRequest,
+        eneque: Enqueue<Boolean>?
     )
 }

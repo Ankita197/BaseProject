@@ -1,7 +1,5 @@
 package com.app.kujacustomerapp.ui.account.register
 
-import android.R.attr.defaultValue
-import android.R.attr.key
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView

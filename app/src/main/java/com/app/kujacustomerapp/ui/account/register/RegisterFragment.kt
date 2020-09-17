@@ -33,7 +33,6 @@ import com.app.kujacustomerapp.ui.dashboard.DashboardActivity
 import com.app.kujacustomerapp.utility.FragmentTagUtils
 import kotlinx.android.synthetic.main.fragment_register.*
 import java.util.*
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 

@@ -5,6 +5,7 @@ import android.content.Context
 import com.app.kujacustomerapp.KujaCustomerApp
 import com.app.kujacustomerapp.R
 import com.app.kujacustomerapp.persistance.AccountSharedPrefs
+import com.app.kujacustomerapp.persistance.DashboardSharedPrefs
 import com.app.kujacustomerapp.remote.base.interceptor.NetworkErrorInterceptor
 import com.app.kujacustomerapp.repository.account.AccountDataRepository
 import com.app.kujacustomerapp.repository.account.AccountRepository
@@ -51,6 +52,12 @@ class ApplicationModule {
     @Singleton
     fun provideAccountSharedPrefs(): AccountSharedPrefs {
         return AccountSharedPrefs(KujaCustomerApp.instance)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDashboardSharedPrefs(): DashboardSharedPrefs {
+        return DashboardSharedPrefs(KujaCustomerApp.instance)
     }
 
     @Provides

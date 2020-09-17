@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.app.kujacustomerapp.R
 import com.app.kujacustomerapp.databinding.FragmentLoginBinding
+import com.app.kujacustomerapp.persistance.AccountSharedPrefs
 import com.app.kujacustomerapp.ui.account.AccountActivity
 import com.app.kujacustomerapp.ui.account.forgotpassword.ForgotPasswordFragment
 import com.app.kujacustomerapp.ui.account.register.RegisterFragment
@@ -47,6 +48,9 @@ open class LoginFragment : BaseBindingFragment<FragmentLoginBinding>() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var accountSharedPrefs: AccountSharedPrefs
 
     var loginViewModel: LoginViewModel? = null
 
@@ -118,6 +122,7 @@ open class LoginFragment : BaseBindingFragment<FragmentLoginBinding>() {
             EventObserver<Any>(object : OnEventUnhandledContent {
                 override fun onChanged(status: Any?) {
                     if(status!! as Boolean) {
+                        accountSharedPrefs.isUserLoggedIn=true
                         navigateToDashBoard()
                     }
                     else{

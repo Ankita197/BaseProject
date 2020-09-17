@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="@dimen/_5sdp"
+    android:layout_marginStart="@dimen/_16sdp"
+    android:layout_marginEnd="@dimen/_16sdp"
+    android:layout_marginTop="@dimen/_16sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="@dimen/_13sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvRfidNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:lineSpacingExtra="4sp"
+            tools:text="RF000123"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvDeviceType"
+            android:fontFamily="@font/montserrat_regular"
+            />
+        <TextView
+            android:id="@+id/tvDeviceType"
+            app:layout_constraintStart_toEndOf="@+id/tvRfidNumber"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnState"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:textColor="#333333"
+            android:lineSpacingExtra="4sp"
+            tools:text="Card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <com.google.android.material.button.MaterialButton
+            app:layout_constraintTop_toTopOf="@+id/tvDeviceType"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDeviceType"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvDeviceType"
+            android:insetTop="@dimen/space_0dp"
+            android:insetBottom="@dimen/space_0dp"
+            android:layout_marginStart="@dimen/_34sdp"
+            android:paddingTop="@dimen/space_0dp"
+            android:paddingBottom="@dimen/space_0dp"
+            android:id="@+id/btnState"
+            android:text="Active"
+            app:cornerRadius="@dimen/_15sdp"
+            android:textAllCaps="false"
+            android:backgroundTint="#8fd475"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

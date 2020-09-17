@@ -10,6 +10,7 @@ import com.app.kujacustomerapp.ui.account.login.LoginViewModel
 import com.app.kujacustomerapp.ui.account.register.RegisterViewModel
 import com.app.kujacustomerapp.ui.base.ViewModelFactory
 import com.app.kujacustomerapp.ui.dashboard.DashboardViewModel
+import com.app.kujacustomerapp.ui.dashboard.rfid.RfidViewModel
 import com.app.kujacustomerapp.ui.dashboard.transaction_history.TransactionViewModel
 import dagger.Binds
 import dagger.Module
@@ -40,6 +41,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RegisterViewModel::class)
     abstract fun bindRegisterViewModel(registerViewModel: RegisterViewModel?): ViewModel?
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RfidViewModel::class)
+    abstract fun bindRfidViewModel(registerViewModel: RfidViewModel?): ViewModel?
 
     @Binds
     @IntoMap
