@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools2="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/_16sdp"
+    android:paddingEnd="@dimen/_16sdp"
+    android:paddingTop="@dimen/_24sdp"
+    android:paddingBottom="@dimen/_20sdp"
+    xmlns:tools="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools2:ignore="NamespaceTypo">
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTransactionId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="#9d9d9d"
+        android:fontFamily="@font/montserrat_regular"
+        android:lineSpacingExtra="0sp"
+        tools:text="Transaction ID"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvAmount"
+        app:layout_constraintStart_toEndOf="@+id/tvTransactionId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="#9d9d9d"
+        android:fontFamily="@font/montserrat_regular"
+        android:lineSpacingExtra="0sp"
+        tools:text="Amount"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTransactionIdValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="#333333"
+        android:fontFamily="@font/montserrat_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTransactionId"
+        tools:text="159821"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        app:layout_constraintStart_toStartOf="@+id/tvAmount"
+        app:layout_constraintTop_toBottomOf="@+id/tvAmount"
+        android:id="@+id/tvAmountValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="#333333"
+        android:lineSpacingExtra="4sp"
+        tools:text="£ 100"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvReceiver"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTransactionIdValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textColor="#9d9d9d"
+        android:fontFamily="@font/montserrat_regular"
+        android:lineSpacingExtra="0sp"
+        tools:text="Receiver"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvStatus"
+        app:layout_constraintStart_toStartOf="@+id/tvAmountValue"
+        app:layout_constraintTop_toTopOf="@+id/tvReceiver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="#9d9d9d"
+        android:fontFamily="@font/montserrat_regular"
+        android:lineSpacingExtra="0sp"
+        tools:text="Status"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvReceiverValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="#333333"
+        android:fontFamily="@font/montserrat_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvReceiver"
+        tools:text="+1 987 654 3210"
+        />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnState"
+        app:layout_constraintStart_toStartOf="@+id/tvStatus"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatus"
+        android:insetTop="@dimen/space_0dp"
+        android:insetBottom="@dimen/space_0dp"
+        android:paddingTop="@dimen/space_0dp"
+        android:paddingBottom="@dimen/space_0dp"
+        android:text="Success"
+        app:cornerRadius="@dimen/_10sdp"
+        android:textAllCaps="false"
+        android:backgroundTint="#8fd475"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_20sdp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnOk"
+        style="@style/MyBlueButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:textAlignment="center"
+        android:text="Ok"
+        app:layout_constraintTop_toBottomOf="@+id/btnState"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

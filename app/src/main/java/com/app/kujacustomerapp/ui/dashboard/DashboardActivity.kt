@@ -3,25 +3,40 @@ package com.app.kujacustomerapp.ui.dashboard
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.app.kujacustomerapp.R
 import com.app.kujacustomerapp.persistance.AccountSharedPrefs
 import com.app.kujacustomerapp.ui.account.AccountActivity
 import com.app.kujacustomerapp.ui.base.BaseActivity
+import com.app.kujacustomerapp.ui.base.event.EventObserver
+import com.app.kujacustomerapp.ui.base.event.OnEventUnhandledContent
 import com.app.kujacustomerapp.ui.dashboard.rfid.RfidFragment
 import com.app.kujacustomerapp.ui.dashboard.transaction_history.TransactionHistoryFragment
+import com.app.kujacustomerapp.ui.dashboard.transfer_money.TransferMoneyFragment
 import com.app.kujacustomerapp.utility.FragmentTagUtils
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.dialog_check_balance.view.*
+import kotlinx.android.synthetic.main.dialog_success.view.*
+import kotlinx.android.synthetic.main.dialog_success.view.btnOk
 import javax.inject.Inject
 
 
 class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     var drawerToggle:ActionBarDrawerToggle?=null
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    var dashboardViewModel: DashboardViewModel? = null
+    var   customLayout:View?=null
+
 
     @Inject
     lateinit var accountSharedPrefs: AccountSharedPrefs
@@ -31,12 +46,15 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
     var alertDialog: AlertDialog.Builder?=null
 
     var dialog: AlertDialog?=null
+    var dialogCheckBalance: AlertDialog?=null
 
     override fun viewModelSetup() {
-        // no-op
+        dashboardViewModel =
+            ViewModelProviders.of(this, factory).get(DashboardViewModel::class.java)
     }
 
     override fun initView(): kotlin.Unit {
+
         setSupportActionBar(toolbar)
         supportActionBar?.title="Profile"
         initLogoutDialog()
@@ -47,6 +65,8 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         drawerToggle?.setHomeAsUpIndicator(R.drawable.menu);
         switchFragment(DashboardFragment(), false, FragmentTagUtils.DASHBOARD_FRAGMENT)
         navView.setNavigationItemSelectedListener(this)
+        initObservals()
+        setDialogBalance()
     }
 
     private fun setIconClickListner() {
@@ -68,6 +88,12 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.recorderRfid->{
                 switchFragment(RfidFragment(), false, FragmentTagUtils.RFID_FRAGMENT)
+            }
+            R.id.transferMoney->{
+                switchFragment(TransferMoneyFragment(), false, FragmentTagUtils.TRANSFER_MONEY_FRAGMENT)
+            }
+            R.id.checkBalance->{
+                dashboardViewModel?.checkMyBalance()
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -92,5 +118,30 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
     private fun showAlertDialog() {
 
         dialog?.show()
+    }
+    private fun setDialogBalance(){
+
+        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
+      customLayout= layoutInflater.inflate(R.layout.dialog_check_balance, null)
+        alertDialog.setView(customLayout)
+        customLayout?.rootView?.btnOk?.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(v: View?) {
+                dialogCheckBalance?.dismiss()
+            }
+        })
+
+        dialogCheckBalance= alertDialog.create()
+        dialogCheckBalance?.setCanceledOnTouchOutside(false)
+    }
+    private fun initObservals(){
+        dashboardViewModel?.successLiveData?.observe(this,EventObserver<Any>(object :OnEventUnhandledContent{
+            override fun onChanged(`object`: Any?) {
+                var balance=`object` as Float
+                    customLayout?.rootView?.tvWalletBalanceValue?.text=balance.toInt().toString()
+                customLayout?.rootView?.tvKujaBalanceValue?.text=balance.toInt().toString()
+                dialogCheckBalance?.show()
+
+            }
+        }))
     }
 }

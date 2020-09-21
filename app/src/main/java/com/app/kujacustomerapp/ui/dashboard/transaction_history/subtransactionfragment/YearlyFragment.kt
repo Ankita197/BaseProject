@@ -14,7 +14,6 @@ import com.app.kujacustomerapp.ui.base.event.OnEventUnhandledContent
 import com.app.kujacustomerapp.ui.dashboard.adapter.ItemTransactionAdapter
 import com.app.kujacustomerapp.ui.dashboard.transaction_history.TransactionViewModel
 import com.app.kujacustomerapp.utility.setList
-import kotlinx.android.synthetic.main.fragment_transaction_history.*
 import kotlinx.android.synthetic.main.fragment_yearly.*
 import java.text.ParseException
 import java.text.SimpleDateFormat

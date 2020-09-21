@@ -12,6 +12,7 @@ import com.app.kujacustomerapp.ui.base.ViewModelFactory
 import com.app.kujacustomerapp.ui.dashboard.DashboardViewModel
 import com.app.kujacustomerapp.ui.dashboard.rfid.RfidViewModel
 import com.app.kujacustomerapp.ui.dashboard.transaction_history.TransactionViewModel
+import com.app.kujacustomerapp.ui.dashboard.transfer_money.TransferMoneyViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -61,5 +62,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TransactionViewModel::class)
     abstract fun bindTransactionViewModel(transactionViewModel: TransactionViewModel?): ViewModel?
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TransferMoneyViewModel::class)
+    abstract fun bindTransferMoneyViewModel(transferMoneyViewModel: TransferMoneyViewModel): ViewModel?
 
 }

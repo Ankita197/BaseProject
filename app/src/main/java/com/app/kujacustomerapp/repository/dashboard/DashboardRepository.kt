@@ -1,8 +1,10 @@
 package com.app.kujacustomerapp.repository.dashboard
 
 import com.app.kujacustomerapp.interfaces.Enqueue
+import com.app.kujacustomerapp.remote.entity.request.account.MakePaymentRequest
 import com.app.kujacustomerapp.remote.entity.request.account.ReIssueRequest
 import com.app.kujacustomerapp.remote.entity.response.dashboard.DashboardData
+import com.app.kujacustomerapp.remote.entity.response.dashboard.MakePaymentResponse
 import com.app.kujacustomerapp.remote.entity.response.dashboard.TransactionData
 import com.app.kujacustomerapp.remote.entity.response.rfid.DeviceData
 
@@ -28,4 +30,8 @@ interface DashboardRepository {
         reIssueRequest: ReIssueRequest,
         eneque: Enqueue<Boolean>?
     )
+
+    fun makePayment(makePaymentRequest: MakePaymentRequest,enqueue: Enqueue<MakePaymentResponse>)
+
+    fun getCustomerBalance(id: Int,enqueue: Enqueue<Float>)
 }

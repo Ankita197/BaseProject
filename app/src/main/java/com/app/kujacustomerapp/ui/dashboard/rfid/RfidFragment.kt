@@ -1,11 +1,10 @@
 package com.app.kujacustomerapp.ui.dashboard.rfid
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.app.kujacustomerapp.R
@@ -16,6 +15,7 @@ import com.app.kujacustomerapp.ui.base.event.EventObserver
 import com.app.kujacustomerapp.ui.base.event.OnEventUnhandledContent
 import com.app.kujacustomerapp.ui.dashboard.adapter.ItemRfidAdapter
 import kotlinx.android.synthetic.main.dialog_submission.view.*
+import kotlinx.android.synthetic.main.dialog_success.view.*
 import kotlinx.android.synthetic.main.fragment_rfid.*
 import javax.inject.Inject
 
@@ -28,6 +28,7 @@ open class RfidFragment : BaseBindingFragment<FragmentRfidBinding>() {
     private var adapter: ArrayAdapter<String>? = null
     val itemRfidAdapter=ItemRfidAdapter()
     var alert: AlertDialog?=null
+    var alertSuccess: AlertDialog?=null
 
     private fun setSpinner() {
       val item=ArrayList<String>()
@@ -47,8 +48,10 @@ open class RfidFragment : BaseBindingFragment<FragmentRfidBinding>() {
 
     override fun initViews() {
         setSpinner()
+        setItemSelectedListner()
         rfidViewModel?.getDeviceData()
         setDialodView()
+        setSuccessDialog()
         rvItemDevices.adapter=itemRfidAdapter
         btnSubmit.setOnClickListener(object :View.OnClickListener{
             override fun onClick(v: View?) {
@@ -56,6 +59,39 @@ open class RfidFragment : BaseBindingFragment<FragmentRfidBinding>() {
             }
         })
     }
+
+    private fun setItemSelectedListner() {
+       spinnerDeviceType.setOnItemSelectedListener(object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+               rfidViewModel?.position=(position+1)
+                when (position) {
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        })
+    }
+
+    private fun setSuccessDialog() {
+        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        val customLayout: View = layoutInflater.inflate(R.layout.dialog_success, null)
+        alertDialog.setView(customLayout)
+        customLayout.btnOk.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(v: View?) {
+               alertSuccess?.dismiss()
+            }
+        })
+
+        alertSuccess= alertDialog.create()
+        alertSuccess?.setCanceledOnTouchOutside(false)
+
+    }
+
 
     private fun setDialodView() {
         val alertDialog: AlertDialog.Builder = AlertDialog.Builder(requireContext())
@@ -90,7 +126,8 @@ open class RfidFragment : BaseBindingFragment<FragmentRfidBinding>() {
             OnEventUnhandledContent {
             override fun onChanged(`object`: Any?) {
                 if(`object` as Boolean){
-                    Toast.makeText(requireContext(),"reodering request is submitted",Toast.LENGTH_SHORT).show()
+                    alert?.dismiss()
+                    alertSuccess?.show()
                 }
 
             }

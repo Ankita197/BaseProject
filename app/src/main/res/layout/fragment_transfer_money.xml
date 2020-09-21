@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="transferMoneyViewModel"
+            type="com.app.kujacustomerapp.ui.dashboard.transfer_money.TransferMoneyViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/_16sdp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/_16sdp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorText="@{transferMoneyViewModel.receiverPhoneNoError}"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Receiver Phone Number"
+            android:inputType="number"
+            android:maxLength="10"
+            android:text="@={transferMoneyViewModel.receiverPhoneNo}"
+            android:afterTextChanged="@{(edible)->transferMoneyViewModel.phoneValidator(edible)}"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorText="@{transferMoneyViewModel.amountError}"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintTop_toBottomOf="@+id/tilPhone"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edtAmount"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Amount"
+        android:text="@={transferMoneyViewModel.amount}"
+        android:afterTextChanged="@{(edible)->transferMoneyViewModel.amountValidator(edible)}"
+        android:inputType="number"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColorHint="@color/colorHintText"
+        android:theme="@style/MyEditText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilNarration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textColorHint="@color/colorHintText"
+        app:boxBackgroundMode="none"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/MyErrorText"
+        app:hintTextAppearance="@style/MyHintText"
+        app:hintTextColor="@color/colorHintText"
+        app:layout_constraintTop_toBottomOf="@+id/tilAmount"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtNarration"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Narration"
+            android:text="@={transferMoneyViewModel.narration}"
+            android:inputType="text"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/colorHintText"
+            android:theme="@style/MyEditText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSend"
+        style="@style/MyBlueButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:textAlignment="center"
+        android:text="Send"
+        app:layout_constraintTop_toBottomOf="@+id/tilNarration"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineBegin" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

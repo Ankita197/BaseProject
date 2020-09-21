@@ -13,6 +13,11 @@ import javax.inject.Inject
 class RfidViewModel @Inject constructor(application: Application,private val dashboardRepository: DashboardRepository) : RfidVariableViewModel(application) {
     var successLiveData=MutableLiveData<Event<ArrayList<DeviceData>>>()
     var successReOrderingRequestLiveData=MutableLiveData<Event<Boolean>>()
+    var position:Int?=null
+        get() = field
+        set(position) {
+            field = position
+        }
 
     fun getDeviceData(){
         dashboardRepository.callGetDeviceData(3,object :Enqueue<ArrayList<DeviceData>>{
@@ -27,7 +32,7 @@ class RfidViewModel @Inject constructor(application: Application,private val das
     }
 
     fun setReOderingDevice(){
-       dashboardRepository.callReOderingRfid(ReIssueRequest("0","1","1","3"),object :Enqueue<Boolean>{
+       dashboardRepository.callReOderingRfid(ReIssueRequest("0",position.toString(),"1","3"),object :Enqueue<Boolean>{
            override fun onSuccess(call: Call<*>, response: Boolean) {
                successReOrderingRequestLiveData.postValue(Event(response))
            }
@@ -37,4 +42,7 @@ class RfidViewModel @Inject constructor(application: Application,private val das
            }
        })
     }
+
+
+
 }

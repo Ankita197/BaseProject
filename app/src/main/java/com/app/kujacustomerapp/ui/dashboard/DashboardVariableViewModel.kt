@@ -8,12 +8,12 @@ import com.app.kujacustomerapp.ui.base.BaseObservableViewModel
 open class DashboardVariableViewModel(application: Application) :
     BaseObservableViewModel(application) {
 
-//    var showProgress = false
-//        @Bindable get() = field
-//        set(showProgress) {
-//            field = showProgress
-//            notifyPropertyChanged(BR.showProgress)
-//        }
+    var showProgress = false
+        @Bindable get() = field
+        set(showProgress) {
+            field = showProgress
+            notifyPropertyChanged(BR.showProgress)
+        }
 //    var loadMore = false
 //        @Bindable get() = field
 //        set(loadMore) {

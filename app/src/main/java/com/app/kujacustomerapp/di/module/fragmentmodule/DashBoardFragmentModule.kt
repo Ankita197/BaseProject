@@ -8,6 +8,7 @@ import com.app.kujacustomerapp.ui.dashboard.transaction_history.subtransactionfr
 import com.app.kujacustomerapp.ui.dashboard.transaction_history.subtransactionfragment.MonthlyFragment
 import com.app.kujacustomerapp.ui.dashboard.transaction_history.subtransactionfragment.WeeklyFragment
 import com.app.kujacustomerapp.ui.dashboard.transaction_history.subtransactionfragment.YearlyFragment
+import com.app.kujacustomerapp.ui.dashboard.transfer_money.TransferMoneyFragment
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -43,5 +44,8 @@ abstract class DashBoardFragmentModule {
     @ContributesAndroidInjector
     abstract fun contributeRfidFragment(): RfidFragment
 
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeTransferMoneyFragment(): TransferMoneyFragment
 
 }

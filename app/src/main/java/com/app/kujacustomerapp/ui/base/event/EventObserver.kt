@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
  *
  * [onEventUnhandledContent] is *only* called if the [Event]'s contents has not been handled.
  */
-class EventObserver<T>(private val onEventUnhandledContent:  OnEventUnhandledContent) :
+class EventObserver<T>(private val onEventUnhandledContent: OnEventUnhandledContent) :
     Observer<T> {
     fun onChanged(event: Event<*>?) {
         if (event != null) {

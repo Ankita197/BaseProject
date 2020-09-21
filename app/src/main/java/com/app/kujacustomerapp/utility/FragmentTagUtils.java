@@ -9,6 +9,7 @@ public interface FragmentTagUtils {
     String PASSWORD_SEND_SUCCESS_FRAGMENT = "password_send_success_fragment";
     String SECURITY_QUESTION_FRAGMENT = "security_question_fragment";
     String TRANSACTION_HISTORY_FRAGMENT = "transaction_history_fragment";
+    String TRANSFER_MONEY_FRAGMENT = "transfer_money_fragment";
     String NAME = "name";
     String EMAIL = "email";
     String PHONE = "phone";

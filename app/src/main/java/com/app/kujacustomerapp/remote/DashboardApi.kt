@@ -1,8 +1,9 @@
 package com.app.kujacustomerapp.remote
 
 import com.app.kujacustomerapp.remote.base.BaseResponse
-import com.app.kujacustomerapp.remote.entity.request.account.LoginRequest
+import com.app.kujacustomerapp.remote.entity.request.account.MakePaymentRequest
 import com.app.kujacustomerapp.remote.entity.request.account.ReIssueRequest
+import com.app.kujacustomerapp.remote.entity.response.dashboard.MakePaymentResponse
 import com.app.kujacustomerapp.remote.entity.response.dashboard.DashboardData
 import com.app.kujacustomerapp.remote.entity.response.dashboard.TransactionData
 import com.app.kujacustomerapp.remote.entity.response.rfid.DeviceData
@@ -33,4 +34,13 @@ interface DashboardApi {
 
     @POST("api/kujaAPI/ReIssue")
     fun setReoderingRfid(@Body reIssueRequest: ReIssueRequest?): Call<BaseResponse<Int>>
+
+    @POST("api/kujaAPI/MakePayment")
+    fun makePayment(@Body makePaymentRequest: MakePaymentRequest): Call<BaseResponse<MakePaymentResponse>>
+
+    //GetCustomerBalance
+    @GET("api/kujaAPI/GetCustomerBalance")
+    fun getCustomerBalance(
+        @Query("UserID") userID: Int
+    ): Call<BaseResponse<Float>>
 }

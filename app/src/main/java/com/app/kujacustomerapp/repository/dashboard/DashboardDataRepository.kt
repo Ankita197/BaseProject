@@ -1,14 +1,14 @@
 package com.app.kujacustomerapp.repository.dashboard
 
-import android.util.Log
 import com.app.kujacustomerapp.interfaces.Enqueue
-import com.app.kujacustomerapp.persistance.AccountSharedPrefs
 import com.app.kujacustomerapp.persistance.DashboardSharedPrefs
 import com.app.kujacustomerapp.remote.DashboardApi
 import com.app.kujacustomerapp.remote.base.BaseResponse
 import com.app.kujacustomerapp.remote.base.CommonRetrofit
+import com.app.kujacustomerapp.remote.entity.request.account.MakePaymentRequest
 import com.app.kujacustomerapp.remote.entity.request.account.ReIssueRequest
 import com.app.kujacustomerapp.remote.entity.response.dashboard.DashboardData
+import com.app.kujacustomerapp.remote.entity.response.dashboard.MakePaymentResponse
 import com.app.kujacustomerapp.remote.entity.response.dashboard.TransactionData
 import com.app.kujacustomerapp.remote.entity.response.rfid.DeviceData
 import com.google.gson.Gson
@@ -103,6 +103,43 @@ class DashboardDataRepository @Inject constructor(var  dashboardSharedPrefs: Das
                 response: Response<BaseResponse<Int>>
             ) {
                 response.body()?.status?.let { eneque?.onSuccess(call, it) }
+            }
+
+        })
+    }
+
+    override fun makePayment(
+        makePaymentRequest: MakePaymentRequest,
+        enqueue: Enqueue<MakePaymentResponse>
+    ) {
+        getNetworkService()?.makePayment(makePaymentRequest)?.enqueue(object :Callback<BaseResponse<MakePaymentResponse>>{
+            override fun onFailure(call: Call<BaseResponse<MakePaymentResponse>>, t: Throwable) {
+                    enqueue.onError(call,t)
+            }
+
+            override fun onResponse(
+                call: Call<BaseResponse<MakePaymentResponse>>,
+                response: Response<BaseResponse<MakePaymentResponse>>
+            ) {
+                if(response.body()!=null) {
+                    response.body()!!.data?.let { enqueue.onSuccess(call, it) }
+                }
+            }
+
+        })
+    }
+
+    override fun getCustomerBalance(id: Int, enqueue: Enqueue<Float>) {
+        getNetworkService()?.getCustomerBalance(id)?.enqueue(object :Callback<BaseResponse<Float>>{
+            override fun onFailure(call: Call<BaseResponse<Float>>, t: Throwable) {
+                enqueue.onError(call,t)
+            }
+
+            override fun onResponse(
+                call: Call<BaseResponse<Float>>,
+                response: Response<BaseResponse<Float>>
+            ) {
+                response.body()?.data?.let { enqueue.onSuccess(call, it) }
             }
 
         })

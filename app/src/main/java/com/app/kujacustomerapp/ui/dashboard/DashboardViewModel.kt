@@ -15,7 +15,7 @@ class DashboardViewModel @Inject constructor(
     private val dashboardRepository: DashboardRepository
 ) : DashboardVariableViewModel(application) {
 
-    var successLiveData: MutableLiveData<Event<DashboardData?>> =
+    var successLiveData: MutableLiveData<Event<Float>> =
         MutableLiveData()
 
     var errorLiveData = MutableLiveData<Event<String?>>()
@@ -23,5 +23,19 @@ class DashboardViewModel @Inject constructor(
     var pageNumber = 0
 
 
+    fun checkMyBalance(){
+        showProgress=true
+        dashboardRepository.getCustomerBalance(1,object:Enqueue<Float>{
+            override fun onSuccess(call: Call<*>, response: Float) {
+                showProgress=false
+                successLiveData.postValue(Event(response))
+            }
+
+            override fun onError(call: Call<*>, t: Throwable) {
+              showProgress=false
+            }
+
+        })
+    }
 
 }
