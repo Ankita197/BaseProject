@@ -85,6 +85,7 @@
                     />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnState"
                     app:layout_constraintStart_toEndOf="@id/tvTransactionAmount"
                     app:layout_constraintBottom_toBottomOf="@+id/tvTransactionAmount"
                     app:layout_constraintTop_toTopOf="@+id/tvTransactionAmount"

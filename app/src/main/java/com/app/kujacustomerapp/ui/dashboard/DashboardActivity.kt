@@ -80,6 +80,7 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.transactionHistory -> {
+                supportActionBar?.title="Transaction History"
                 switchFragment(TransactionHistoryFragment(), false, FragmentTagUtils.TRANSACTION_HISTORY_FRAGMENT)
 
             }
@@ -87,9 +88,11 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
                 showAlertDialog()
             }
             R.id.recorderRfid->{
+                supportActionBar?.title="Recorder RFID"
                 switchFragment(RfidFragment(), false, FragmentTagUtils.RFID_FRAGMENT)
             }
             R.id.transferMoney->{
+                supportActionBar?.title="Transfer Money"
                 switchFragment(TransferMoneyFragment(), false, FragmentTagUtils.TRANSFER_MONEY_FRAGMENT)
             }
             R.id.checkBalance->{

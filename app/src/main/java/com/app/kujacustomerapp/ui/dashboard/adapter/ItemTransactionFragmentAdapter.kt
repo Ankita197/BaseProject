@@ -1,7 +1,6 @@
 package com.app.kujacustomerapp.ui.dashboard.adapter
 
 import android.content.Context
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -14,18 +13,16 @@ import com.app.kujacustomerapp.ui.dashboard.transaction_history.subtransactionfr
 class ItemTransactionFragmentAdapter(
     private val myContext: Context,
     fm: FragmentManager,
-    internal var totalTabs: Int
+    internal var totalTabs: Int,
+    private val newlist :ArrayList<TransactionData>
 ) : FragmentStatePagerAdapter(fm)  {
 
-    var newlist =ArrayList<TransactionData>()
-    fun setList(newList:ArrayList<TransactionData>){
-        newlist=newList
-    }
+
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> {
                 //  val homeFragment: HomeFragment = HomeFragment()
-                return YearlyFragment()
+                return YearlyFragment(newlist)
             }
             1 -> {
                 return MonthlyFragment(newlist)
@@ -37,9 +34,9 @@ class ItemTransactionFragmentAdapter(
             }
             3-> {
                 // val movieFragment = MovieFragment()
-                return DailyFragment()
+                return DailyFragment(newlist)
             }
-            else -> return YearlyFragment()
+            else -> return YearlyFragment(newlist)
         }
     }
 
