@@ -78,7 +78,7 @@ open class LoginFragment : BaseBindingFragment<FragmentLoginBinding>() {
         binding?.tvForgotPassword?.setOnClickListener {
             (activity as AccountActivity).switchFragment(
                 ForgotPasswordFragment(),
-                true,
+                false,
                 FORGOT_PASSWORD_FRAGMENT
             )
 
@@ -98,7 +98,7 @@ open class LoginFragment : BaseBindingFragment<FragmentLoginBinding>() {
                     true,
                     REGISTER_FRAGMENT
                 )
-                Toast.makeText(activity, "Clicked", Toast.LENGTH_SHORT).show()
+
             }
         }
         spannable.setSpan(clickableSpan,23,30,0)

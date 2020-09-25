@@ -24,7 +24,7 @@ class AccountActivity : BaseActivity() {
     }
 
     override fun initView() {
-        switchFragment(LoginFragment(), false, LOGIN_FRAGMENT)
+        switchFragment(LoginFragment(), true, LOGIN_FRAGMENT)
     }
 
 }

@@ -44,7 +44,7 @@
                 android:layout_marginTop="@dimen/_26sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textSize="@dimen/_24ssp"
                 tools:text="Sign In"
                 />
             <com.google.android.material.textview.MaterialTextView
@@ -56,7 +56,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvLoginLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="@dimen/_14ssp"
                 android:fontFamily="@font/montserrat_regular"
                 android:textColor="#9d9d9d"
                 android:lineSpacingExtra="4sp"
@@ -156,14 +156,13 @@
                 app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
                 app:layout_constraintStart_toStartOf="@id/guideLineBegin" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:fontFamily="@font/montserrat_regular"
                 android:id="@+id/tvSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="@dimen/_14ssp"
                 android:textColor="#9d9d9d"
-                android:lineSpacingExtra="4sp"
                 tools:text="Don’t have an account? Sign Up"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -185,6 +184,7 @@
 
                 <androidx.core.widget.ContentLoadingProgressBar
                     android:id="@+id/progressBar"
+                    android:indeterminateTint="@color/colorPrimary"
                     style="?android:attr/progressBarStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -1,6 +1,8 @@
 package com.app.kujacustomerapp.di.module.fragmentmodule
 
 import com.app.kujacustomerapp.di.scope.FragmentScoped
+import com.app.kujacustomerapp.ui.account.changepassword.ChangePasswordFragment
+import com.app.kujacustomerapp.ui.account.register.SequrityQuestionFragment
 import com.app.kujacustomerapp.ui.dashboard.DashboardFragment
 import com.app.kujacustomerapp.ui.dashboard.rfid.RfidFragment
 import com.app.kujacustomerapp.ui.dashboard.transaction_history.TransactionHistoryFragment
@@ -47,5 +49,13 @@ abstract class DashBoardFragmentModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeTransferMoneyFragment(): TransferMoneyFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeChangePasswordFragment(): ChangePasswordFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeSecurityQuestionFragment(): SequrityQuestionFragment
 
 }

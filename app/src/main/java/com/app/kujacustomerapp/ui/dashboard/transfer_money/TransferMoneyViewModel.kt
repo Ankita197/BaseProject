@@ -78,7 +78,7 @@ class TransferMoneyViewModel @Inject constructor(
 
     fun amountValidator(editable: Editable) {
         if (binding?.edtAmount == null) return
-        val minimumLength = 2
+        val minimumLength = 1
         if (!TextUtils.isEmpty(editable.toString()) && editable.length < minimumLength) {
             binding?.tilAmount?.error = "Password must be minimum $minimumLength length"
         } else {

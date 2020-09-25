@@ -16,4 +16,7 @@ class User {
     @SerializedName("countryName")
     var countryName: String? = null
 
+    @SerializedName("userName")
+    var userName: String? = null
+
 }

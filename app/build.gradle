@@ -35,13 +35,13 @@ android {
             dimension "environment"
             applicationIdSuffix ".sandbox"
             resValue "string", "app_name", "KujaCustomerApp staging"
-            buildConfigField 'String', 'API_BASE_URL', '"http://192.168.2.192:7777/"'
+            buildConfigField 'String', 'API_BASE_URL', '"https://web1.anasource.com/KUJA/"'
         }
 
         production {
             dimension "environment"
             resValue "string", "app_name", "KujaCustomerApp"
-            buildConfigField 'String', 'API_BASE_URL', '"http://192.168.2.192:7777/"'
+            buildConfigField 'String', 'API_BASE_URL', '"https://web1.anasource.com/KUJA/"'
         }
     }
 

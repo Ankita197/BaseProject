@@ -40,7 +40,7 @@ class TransferMoneyFragment : BaseBindingFragment<FragmentTransferMoneyBinding>(
         binding?.transferMoneyViewModel=transferMoneyViewModel
         binding?.let { transferMoneyViewModel?.setBinding(it) }
         setDialogShowPayment()
-       btnSend.setOnClickListener(object :View.OnClickListener{
+        btnSend.setOnClickListener(object :View.OnClickListener{
            override fun onClick(v: View?) {
                if(transferMoneyViewModel?.onValidate()!!) {
                    transferMoneyViewModel?.makePayment()

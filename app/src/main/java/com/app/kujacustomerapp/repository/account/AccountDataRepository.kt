@@ -1,5 +1,6 @@
 package com.app.kujacustomerapp.repository.account
 
+import android.util.Log
 import com.app.kujacustomerapp.interfaces.Enqueue
 import com.app.kujacustomerapp.persistance.AccountSharedPrefs
 import com.app.kujacustomerapp.remote.AccountApi
@@ -9,7 +10,10 @@ import com.app.kujacustomerapp.remote.entity.request.account.*
 import com.app.kujacustomerapp.remote.entity.response.account.ForgotPasswordResponse
 import com.app.kujacustomerapp.remote.entity.response.account.SecurityQuestionResponse
 import com.app.kujacustomerapp.remote.entity.response.account.UserData
+import com.app.kujacustomerapp.remote.entity.response.dashboard.SecurityQuestionUpdateResponse
 import com.google.gson.Gson
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,40 +47,19 @@ class AccountDataRepository @Inject constructor(var  accountSharedPrefs: Account
             })
     }
 
-
-//    override fun callLogin(
-//        loginRequest: LoginRequest?,
-//        eneque: Enqueue<BaseResponse<UserData?>?>?
-//    ) {
-//        getNetworkService()?.callLogin(loginRequest)
-//            ?.enqueue(object : Callback<BaseResponse<UserData?>?> {
-//                override fun onResponse(
-//                    call: Call<BaseResponse<UserData?>?>,
-//                    response: Response<BaseResponse<UserData?>?>
-//                ) {
-//                    eneque?.onSuccess(call, response.body())
-//                }
-//
-//                override fun onFailure(
-//                    call: Call<BaseResponse<UserData?>?>,
-//                    t: Throwable
-//                ) {
-//                    eneque?.onError(call, t)
-//                }
-//            })
-//    }
-
     override fun callRegister(
-        registerRequest: SignUpRequest?,
+        registerRequest: RequestBody?,
+        images: List<MultipartBody.Part>,
         eneque: Enqueue<Boolean?>?
     ) {
-        getNetworkService()?.callRegister(registerRequest)
+        getNetworkService()?.callRegister(registerRequest, images)
             ?.enqueue(object : Callback<BaseResponse<Int?>?> {
                 override fun onResponse(
                     call: Call<BaseResponse<Int?>?>,
                     response: Response<BaseResponse<Int?>?>
                 ) {
                     eneque?.onSuccess(call, response.body()?.status)
+                    Log.d("___@___","status is"+response.body()?.status)
 
                 }
 
@@ -87,7 +70,12 @@ class AccountDataRepository @Inject constructor(var  accountSharedPrefs: Account
                     eneque?.onError(call, t)
                 }
             })
+
     }
+
+
+
+
 
     override fun callForgotPassword(
         forgotPasswordRequest: ForgotPasswordRequest,
@@ -149,6 +137,8 @@ class AccountDataRepository @Inject constructor(var  accountSharedPrefs: Account
             }
         })
     }
+
+
 
 //    override fun callForgotPassword(
 //        forgotPasswordRequest: ForgotPasswordRequest,

@@ -110,8 +110,6 @@
             android:layout_height="match_parent"
             android:hint="Narration"
             android:text="@={transferMoneyViewModel.narration}"
-            android:inputType="text"
-            android:maxLength="10"
             android:maxLines="1"
             android:singleLine="true"
             android:textColorHint="@color/colorHintText"
@@ -127,6 +125,7 @@
         android:layout_marginBottom="@dimen/_16sdp"
         android:textAlignment="center"
         android:text="Send"
+        android:textSize="@dimen/_14ssp"
         app:layout_constraintTop_toBottomOf="@+id/tilNarration"
         app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
         app:layout_constraintStart_toStartOf="@id/guideLineBegin" />

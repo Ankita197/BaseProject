@@ -5,6 +5,7 @@
     android:layout_marginStart="@dimen/_16sdp"
     android:layout_marginEnd="@dimen/_16sdp"
     android:layout_marginTop="@dimen/_16sdp"
+    android:layout_marginBottom="@dimen/_10ssp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -16,11 +17,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvRfidNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="@dimen/_12ssp"
             android:textColor="#333333"
             android:lineSpacingExtra="4sp"
             tools:text="RF000123"
@@ -30,7 +31,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tvDeviceType"
             android:fontFamily="@font/montserrat_regular"
             />
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvDeviceType"
             app:layout_constraintStart_toEndOf="@+id/tvRfidNumber"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +39,7 @@
             android:fontFamily="@font/montserrat_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="@dimen/_12ssp"
             android:layout_marginStart="@dimen/_5sdp"
             android:textColor="#333333"
             android:lineSpacingExtra="4sp"
@@ -51,6 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvDeviceType"
             android:insetTop="@dimen/space_0dp"
+            android:textSize="@dimen/_10ssp"
             android:insetBottom="@dimen/space_0dp"
             android:layout_marginStart="@dimen/_34sdp"
             android:paddingTop="@dimen/space_0dp"

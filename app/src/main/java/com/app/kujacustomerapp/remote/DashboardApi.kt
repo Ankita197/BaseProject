@@ -3,8 +3,11 @@ package com.app.kujacustomerapp.remote
 import com.app.kujacustomerapp.remote.base.BaseResponse
 import com.app.kujacustomerapp.remote.entity.request.account.MakePaymentRequest
 import com.app.kujacustomerapp.remote.entity.request.account.ReIssueRequest
+import com.app.kujacustomerapp.remote.entity.request.account.SecurityQuestionRequest
+import com.app.kujacustomerapp.remote.entity.request.account.SecurityQuestionRequestUpdate
 import com.app.kujacustomerapp.remote.entity.response.dashboard.MakePaymentResponse
 import com.app.kujacustomerapp.remote.entity.response.dashboard.DashboardData
+import com.app.kujacustomerapp.remote.entity.response.dashboard.SecurityQuestionUpdateResponse
 import com.app.kujacustomerapp.remote.entity.response.dashboard.TransactionData
 import com.app.kujacustomerapp.remote.entity.response.rfid.DeviceData
 import retrofit2.Call
@@ -43,4 +46,9 @@ interface DashboardApi {
     fun getCustomerBalance(
         @Query("UserID") userID: Int
     ): Call<BaseResponse<Float>>
+
+    @POST("api/kujaAPI/UpdateSecurityQuestion")
+    fun UpdateSecurityQuestion(@Body securityQuestionRequestUpdate: SecurityQuestionRequestUpdate?): Call<BaseResponse<SecurityQuestionUpdateResponse>>
+
+
 }

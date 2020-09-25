@@ -66,6 +66,7 @@ class ForgotPasswordViewModel @Inject constructor(
                 }
 
                 override fun onSuccess(call: Call<*>, response: Boolean?) {
+                    showProgress=false
                     successLiveData.postValue(Event(response))
                 }
             })

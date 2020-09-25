@@ -1,6 +1,9 @@
 package com.app.kujacustomerapp.ui.account.register
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -9,22 +12,33 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.app.kujacustomerapp.R
 import com.app.kujacustomerapp.databinding.FragmentSequrityQuestionBinding
+import com.app.kujacustomerapp.remote.entity.request.account.SecurityQuestionRequestUpdate
 import com.app.kujacustomerapp.remote.entity.response.account.SecurityQuestionResponse
+import com.app.kujacustomerapp.ui.account.AccountActivity
 import com.app.kujacustomerapp.ui.base.BaseBindingFragment
 import com.app.kujacustomerapp.ui.base.event.EventObserver
 import com.app.kujacustomerapp.ui.base.event.OnEventUnhandledContent
+import com.app.kujacustomerapp.ui.dashboard.transaction_history.TransactionHistoryFragment
 import com.app.kujacustomerapp.utility.FragmentTagUtils
+import com.facebook.login.LoginFragment
+import kotlinx.android.synthetic.main.dialog_data_submmited.view.*
+import kotlinx.android.synthetic.main.dialog_success.view.*
 import kotlinx.android.synthetic.main.fragment_sequrity_question.*
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 
-class SequrityQuestionFragment : BaseBindingFragment<FragmentSequrityQuestionBinding>() {
+class SequrityQuestionFragment( var photos: ArrayList<MultipartBody.Part>) : BaseBindingFragment<FragmentSequrityQuestionBinding>() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     var registerViewModel: RegisterViewModel? = null
     private var adapter: ArrayAdapter<String>? = null
     var itemSelectedPos:Int =-1
+    var alert: AlertDialog?=null
+    var customLayout: View?=null
+    var securityQuestionResponse:SecurityQuestionResponse?=null
+
 
     override val contentView: Int
         get() = R.layout.fragment_sequrity_question
@@ -40,8 +54,26 @@ class SequrityQuestionFragment : BaseBindingFragment<FragmentSequrityQuestionBin
         setSecurityQuestionSelection()
         setOnSubmitClick()
         getDataFromRegisterFragment()
-    }
+        if(photos.size!=0) {
 
+            registerViewModel?.setListPhotos(photos)
+        }
+        setDialogDataSubmitted()
+    }
+    private fun setDialogDataSubmitted() {
+        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        customLayout = layoutInflater.inflate(R.layout.dialog_data_submmited, null)
+        alertDialog.setView(customLayout)
+        customLayout?.rootView?.btnSuccess?.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(v: View?) {
+                (activity as AccountActivity).finish()
+                startActivity(Intent(activity,AccountActivity::class.java))
+            }
+        })
+
+        alert= alertDialog.create()
+        alert?.setCanceledOnTouchOutside(false)
+    }
     private fun getDataFromRegisterFragment() {
         val bundle: Bundle? = arguments
         if (bundle != null) {
@@ -74,10 +106,20 @@ class SequrityQuestionFragment : BaseBindingFragment<FragmentSequrityQuestionBin
     private fun setOnSubmitClick() {
         btnSubmit.setOnClickListener(object: View.OnClickListener{
             override fun onClick(v: View?) {
-                if(isValidate()){
-                    registerViewModel?.callRegister()
+
+                    if (isValidate()) {
+                        if(photos.size!=0) {
+                            registerViewModel?.callRegister()
+                        }
+                        else{
+                            registerViewModel?.securityQuestionRequestUpdate= SecurityQuestionRequestUpdate("1","1",
+                               securityQuestionResponse?.securityQuestionID.toString(), edtAnswer.text.toString())
+                            registerViewModel?.callUpdateSecurityQuestion()
+                        }
+                    }
                 }
-            }
+
+
         })
     }
 
@@ -99,9 +141,9 @@ class SequrityQuestionFragment : BaseBindingFragment<FragmentSequrityQuestionBin
         registerViewModel?.successQuestionLiveData?.observe(this, EventObserver<Any>(object :
             OnEventUnhandledContent{
             override fun onChanged(`object`: Any?) {
-                var securityQuestionResponse:SecurityQuestionResponse=`object` as SecurityQuestionResponse
+                securityQuestionResponse=`object` as SecurityQuestionResponse
                 registerViewModel?.securityQuestionResponse=securityQuestionResponse
-                setSpinner(securityQuestionResponse.securityQuestion)
+                setSpinner(securityQuestionResponse?.securityQuestion)
             }
 
         }))
@@ -110,7 +152,19 @@ class SequrityQuestionFragment : BaseBindingFragment<FragmentSequrityQuestionBin
             OnEventUnhandledContent{
             override fun onChanged(`object`: Any?) {
                 if(`object` as Boolean){
-                    Toast.makeText(requireContext(),"Sign Up Successfully",Toast.LENGTH_SHORT).show()
+                  alert?.show()
+
+                }
+            }
+
+        }))
+
+        registerViewModel?.successSecurityQuestionUpdateLiveData?.observe(this, EventObserver<Any>(object :
+            OnEventUnhandledContent{
+            override fun onChanged(`object`: Any?) {
+                if(`object` as Int==1){
+                    Log.d("___@___","data updated Successfully")
+
                 }
             }
 
@@ -124,5 +178,7 @@ class SequrityQuestionFragment : BaseBindingFragment<FragmentSequrityQuestionBin
         adapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerSecurityQuestion.adapter=adapter
     }
+
+
 
 }

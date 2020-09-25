@@ -39,7 +39,7 @@ class ForgotPasswordFragment : BaseBindingFragment<FragmentForgotPasswordBinding
                     if(status as Boolean){
                         (activity as AccountActivity).switchFragment(
                             PasswordSendSuccessFragment(),
-                            true,
+                            false,
                             FragmentTagUtils.PASSWORD_SEND_SUCCESS_FRAGMENT
                         )
                     }

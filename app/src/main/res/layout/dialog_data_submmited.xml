@@ -2,38 +2,38 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools2="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/_16sdp"
     android:layout_height="wrap_content"
+    android:padding="@dimen/_16sdp"
     xmlns:tools="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools2:ignore="NamespaceTypo">
+
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvSubmmitedSuccessfully"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvDataSubmitted"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/_14ssp"
         android:textColor="#666666"
-        android:lineSpacingExtra="4sp"
-        android:textAlignment="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal"
         android:fontFamily="@font/montserrat_regular"
-        tools:text="Request Submitted!"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Detail have been submitted, you will get credentials on registered phone number."
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnOk"
+        android:id="@+id/btnSuccess"
         style="@style/MyBlueButton"
         android:layout_width="0dp"
+        android:textSize="@dimen/_12ssp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginTop="@dimen/_25sdp"
         android:layout_marginBottom="@dimen/_16sdp"
         android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubmmitedSuccessfully"
         android:text="Ok"
-       />
+        app:layout_constraintTop_toBottomOf="@+id/tvDataSubmitted"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

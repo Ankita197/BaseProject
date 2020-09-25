@@ -5,9 +5,8 @@
     <data>
 
         <import type="android.view.View" />
-        <variable
-            name="user"
-            type="com.app.kujacustomerapp.remote.entity.response.account.User" />
+
+
         <variable
             name="viewModel"
             type="com.app.kujacustomerapp.ui.dashboard.DashboardViewModel" />
@@ -55,10 +54,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Name"
-            android:inputType="number"
+            android:inputType="text"
             android:maxLength="10"
             android:maxLines="1"
-            android:text="@{user.createdByName}"
             android:singleLine="true"
             android:textColorHint="@color/colorHintText"
             android:theme="@style/MyEditText" />
@@ -88,7 +86,6 @@
             android:inputType="number"
             android:maxLength="10"
             android:maxLines="1"
-            android:text="@{user.mobileNumber}"
             android:singleLine="true"
             android:textColorHint="@color/colorHintText"
             android:theme="@style/MyEditText" />
@@ -114,10 +111,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Email Address"
-            android:inputType="number"
-            android:maxLength="10"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:text="@{user.emailAddress}"
             android:singleLine="true"
             android:textColorHint="@color/colorHintText"
             android:theme="@style/MyEditText" />
@@ -129,8 +124,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_23sdp"
         android:textColorHint="@color/colorHintText"
-        app:boxBackgroundMode="none"
         app:errorEnabled="false"
+        app:boxBackgroundMode="none"
         app:errorTextAppearance="@style/MyErrorText"
         app:hintTextAppearance="@style/MyHintText"
         app:hintTextColor="@color/colorHintText"
@@ -142,18 +137,27 @@
             android:id="@+id/edtDateOfBirth"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Date Of Birth"
-            android:inputType="number"
-            android:maxLength="10"
-            android:maxLines="1"
-            android:singleLine="true"
+            android:hint="@string/date_of_birth"
+            android:inputType="textEmailAddress"
+            android:focusable="false"
+            android:theme="@style/MyEditText"
+            android:fontFamily="@font/montserrat_regular"
             android:textColorHint="@color/colorHintText"
-            android:theme="@style/MyEditText" />
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
+    <ImageView
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:padding="@dimen/_5sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_date_range"
+        app:layout_constraintEnd_toEndOf="@+id/tilDateOfBirth"
+        app:layout_constraintBottom_toBottomOf="@+id/tilDateOfBirth"/>
     <com.google.android.material.textview.MaterialTextView
         android:text="Gender"
         android:id="@+id/tvGendr"
+        android:textSize="@dimen/_12ssp"
         android:layout_marginTop="@dimen/_19sdp"
         android:fontFamily="@font/montserrat_regular"
         android:textColor="@color/colorHintText"
@@ -183,7 +187,7 @@
         android:id="@+id/tilAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_23sdp"
+        android:layout_marginTop="@dimen/_17sdp"
         android:textColorHint="@color/colorHintText"
         app:boxBackgroundMode="none"
         app:errorEnabled="false"
@@ -199,7 +203,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Address"
-            android:inputType="number"
             android:maxLength="50"
             android:maxLines="2"
             android:singleLine="true"
@@ -227,7 +230,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="City"
-            android:inputType="number"
             android:maxLength="50"
             android:maxLines="2"
             android:singleLine="true"
@@ -254,8 +256,7 @@
             android:id="@+id/edtState"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Address"
-            android:inputType="number"
+            android:hint="State"
             android:maxLength="50"
             android:maxLines="2"
             android:singleLine="true"
@@ -316,6 +317,7 @@
         app:strokeColor="#27aae1"
         android:textColor="#27aae1"
         android:textAllCaps="false"
+        android:textSize="@dimen/_12ssp"
         android:paddingTop="@dimen/_12sdp"
         android:paddingBottom="@dimen/_12sdp"
         app:cornerRadius="@dimen/_20sdp"
@@ -332,6 +334,7 @@
         android:text="Change Security Question"
         android:fontFamily="@font/montserrat_semibold"
         app:strokeWidth="@dimen/space_1dp"
+        android:textSize="@dimen/_12ssp"
         app:strokeColor="#27aae1"
         android:textColor="#27aae1"
         android:textAllCaps="false"
@@ -353,6 +356,8 @@
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_16sdp"
         android:text="Save"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnChangeSecurityQuestion"
         app:layout_constraintEnd_toEndOf="@id/guideLineEnd"

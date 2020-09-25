@@ -4,11 +4,15 @@ import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
 import android.util.Patterns
@@ -22,6 +26,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import com.app.kujacustomerapp.R
 import com.app.kujacustomerapp.databinding.FragmentRegisterBinding
 import com.app.kujacustomerapp.persistance.AccountSharedPrefs
@@ -30,20 +35,31 @@ import com.app.kujacustomerapp.ui.base.BaseBindingFragment
 import com.app.kujacustomerapp.ui.base.event.EventObserver
 import com.app.kujacustomerapp.ui.base.event.OnEventUnhandledContent
 import com.app.kujacustomerapp.ui.dashboard.DashboardActivity
+import com.app.kujacustomerapp.ui.dashboard.adapter.ItemImageUploadAdapter
+import com.app.kujacustomerapp.ui.dashboard.adapter.OnItemTransactionClick
 import com.app.kujacustomerapp.utility.FragmentTagUtils
 import kotlinx.android.synthetic.main.fragment_register.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
 
     private val REQUEST_CODE: Int=200
+    private val REQ_CAMERA_IMAGE:Int=100
+    private var imageArrayList=ArrayList<String>()
+    var photos=ArrayList<MultipartBody.Part>()
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
 
-    val sequrityQuestionFragment=SequrityQuestionFragment()
+    var sequrityQuestionFragment:SequrityQuestionFragment?=null
     val args = Bundle()
 
     @Inject
@@ -53,6 +69,7 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
     var datePickerDialog:DatePickerDialog?=null
     var registerViewModel: RegisterViewModel? = null
     private var adapter: ArrayAdapter<String>? = null
+    var itemImageUploadAdapter=ItemImageUploadAdapter()
 
     override val contentView: Int
         get() = R.layout.fragment_register
@@ -64,10 +81,12 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
 
     override fun initViews() {
         binding?.viewModel = registerViewModel
+        rvItemDocuments.adapter=itemImageUploadAdapter
         setOnDateOfBirhSelect()
         setDocumentUploadListner()
         setSpinner()
         setSelectedItem()
+        setItemImageUploadClick()
         binding?.btnUploadsDocuments?.setOnClickListener { builder?.show() }
 
         binding?.btnSignUP?.setOnClickListener {
@@ -77,6 +96,15 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
 
             }
         }
+    }
+
+    private fun setItemImageUploadClick() {
+        itemImageUploadAdapter.setClick(object :OnItemTransactionClick{
+            override fun onItemClick(pos: Int, holder: RecyclerView.ViewHolder) {
+                imageArrayList.removeAt(pos)
+                itemImageUploadAdapter.notifyItemRemoved(pos)
+            }
+        })
     }
 
     private fun navigateToSecurityQuestionFragment() {
@@ -92,7 +120,8 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         args.putString(FragmentTagUtils.EMAIL, edtEmail.text.toString())
         args.putString(FragmentTagUtils.DATE_OF_BIRTH, edtDateOfBirth.text.toString())
         args.putString(FragmentTagUtils.PHONE, edtPhoneNo.text.toString())
-        sequrityQuestionFragment.arguments=(args)
+        sequrityQuestionFragment= SequrityQuestionFragment(photos)
+        sequrityQuestionFragment?.arguments=(args)
     }
 
     private fun printToast(message:String){
@@ -121,6 +150,10 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
        }
        else if( edtPhoneNo.text.isNullOrEmpty()){
            printToast("please enter phone number")
+           return false
+       }
+       else if( imageArrayList.size<1){
+           printToast("please upload one document ")
            return false
        }
         else{
@@ -163,17 +196,24 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
 //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
 
         builder?.setPositiveButton("Select") { dialog, which ->
-            Toast.makeText(requireContext(),
-                android.R.string.yes, Toast.LENGTH_SHORT).show()
+
             if (askForPermissions()) {
                 openGalleryForImage()
             }
         }
         builder?.setNegativeButton("Capture") { dialog, which ->
-            Toast.makeText(requireContext(),
-                "Maybe", Toast.LENGTH_SHORT).show()
+            if (askForPermissions()) {
+                openCamaraForImage()
+            }
         }
     }
+
+    private fun openCamaraForImage() {
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intent, REQ_CAMERA_IMAGE)
+    }
+
     private fun openGalleryForImage() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
@@ -220,7 +260,8 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         )
     }
     fun isPermissionsAllowed(): Boolean {
-        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        val isCamaraPermission= ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED&&isCamaraPermission
     }
 
     fun askForPermissions(): Boolean {
@@ -228,7 +269,7 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity as Activity,Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 showPermissionDeniedDialog()
             } else {
-                ActivityCompat.requestPermissions(activity as Activity,arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),REQUEST_CODE)
+                ActivityCompat.requestPermissions(activity as Activity,arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA),REQUEST_CODE)
             }
             return false
         }
@@ -238,7 +279,7 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
     override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<String>,grantResults: IntArray) {
         when (requestCode) {
             REQUEST_CODE -> {
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED&&grantResults[1]==PackageManager.PERMISSION_GRANTED) {
                     // permission is granted, you can perform your operation here
                 } else {
                     // permission is denied, you can ask for permission again, if you want
@@ -252,10 +293,33 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
-           // imageView.setImageURI(data?.data) // handle chosen image
-            Log.d("___@___",data?.data.toString())
+           //imageView.setImageURI(data?.data) // handle chosen image
+            var path = getPath(requireContext(), data?.data)
+            data?.data?.let { convertIntoMultiPart(it) }
+            val filename: String = path!!.substring(path.lastIndexOf("/") + 1)
+            imageArrayList.add(filename)
+            itemImageUploadAdapter.setList(imageArrayList)
+        }
+        if (resultCode == Activity.RESULT_OK && requestCode == REQ_CAMERA_IMAGE){
+
+            var photo:Bitmap = data?.getExtras()?.get("data") as Bitmap;
+            val tempUri: Uri = getImageUri(requireContext(), photo)
+            convertIntoMultiPart(tempUri)
+            var path = getPath(requireContext(), tempUri)
+            val filename: String = path!!.substring(path.lastIndexOf("/") + 1)
+            imageArrayList.add(filename)
+            itemImageUploadAdapter.setList(imageArrayList)
         }
     }
+
+    private fun getImageUri(requireContext: Context, photo: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path: String =
+            MediaStore.Images.Media.insertImage(requireContext.getContentResolver(), photo, "Title", null)
+        return Uri.parse(path)
+    }
+
     private fun showPermissionDeniedDialog() {
         AlertDialog.Builder(requireContext())
             .setTitle("Permission Denied")
@@ -275,6 +339,35 @@ open class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
 
     private fun navigateToDashBoard() {
         startActivity(Intent(requireContext(), DashboardActivity::class.java))
+    }
+
+    fun convertIntoMultiPart(tempUri: Uri){
+        val file = File(getPath(requireContext(),tempUri))
+        val requestFile =
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
+// MultipartBody.Part is used to send also the actual file name
+
+        val body =
+            MultipartBody.Part.createFormData("image", file.name, requestFile)
+        photos.add(body)
+        Log.d("___@___","Multipart is"+body.body.contentLength())
+    }
+
+     fun getPath(context: Context, uri: Uri?): String? {
+        var result: String? = null
+        val proj = arrayOf<String>(MediaStore.Images.Media.DATA)
+        val cursor: Cursor = uri?.let { context.getContentResolver().query(it, proj, null, null, null) }!!
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                val column_index: Int = cursor.getColumnIndexOrThrow(proj[0])
+                result = cursor.getString(column_index)
+            }
+            cursor.close()
+        }
+        if (result == null) {
+            result = "Not found"
+        }
+        return result
     }
 
 }

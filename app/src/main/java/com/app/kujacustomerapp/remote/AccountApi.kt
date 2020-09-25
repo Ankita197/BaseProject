@@ -5,16 +5,27 @@ import com.app.kujacustomerapp.remote.entity.request.account.*
 import com.app.kujacustomerapp.remote.entity.response.account.ForgotPasswordResponse
 import com.app.kujacustomerapp.remote.entity.response.account.SecurityQuestionResponse
 import com.app.kujacustomerapp.remote.entity.response.account.UserData
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface AccountApi {
-    @POST("api/kujaAPI/Login")
+    //https://web1.anasource.com/KUJA/api/
+    @POST("api/kujaAPI/login")
     fun callLogin(@Body loginRequest: LoginRequest?): Call<BaseResponse<UserData?>?>?
 
+//    @POST("api/kujaAPI/CreateCustomer")
+//    fun callRegister(@Body signupRequest: SignUpRequest?): Call<BaseResponse<Int?>?>?
+
+    @Multipart
     @POST("api/kujaAPI/CreateCustomer")
-    fun callRegister(@Body signupRequest: SignUpRequest?): Call<BaseResponse<Int?>?>?
+    fun callRegister(@Part("Customer") signupRequest: RequestBody?, @Part images:List<MultipartBody.Part> ): Call<BaseResponse<Int?>?>?
+    //    Call<ResponseBody> add(
+    //            @Part("name") RequestBody name,
+    //            @Part("distribution") RequestBody distribution,
+    //            @Part("habitat") RequestBody habitat,
+    //            @Part MultipartBody.Part image);
 
     @POST("api/kujaAPI/ForgetPassword")
     fun callForgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest?): Call<BaseResponse<ForgotPasswordResponse?>?>?

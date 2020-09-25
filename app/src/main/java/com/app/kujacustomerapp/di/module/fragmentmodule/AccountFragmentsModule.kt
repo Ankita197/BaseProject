@@ -29,9 +29,7 @@ abstract class AccountFragmentsModule {
     @ContributesAndroidInjector
     abstract fun contributePasswordSendSuccessFragment(): PasswordSendSuccessFragment
 
-    @FragmentScoped
-    @ContributesAndroidInjector
-    abstract fun contributeChangePasswordFragment(): ChangePasswordFragment
+
 
     @FragmentScoped
     @ContributesAndroidInjector

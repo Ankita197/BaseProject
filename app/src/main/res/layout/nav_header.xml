@@ -9,13 +9,22 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivProfile"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:src="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/edit_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+        app:layout_constraintEnd_toEndOf="@+id/ivProfile"
+        app:layout_constraintStart_toEndOf="@id/ivProfile" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvName"
@@ -26,7 +35,7 @@
         android:theme="@style/MyTextViewHeader1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="@dimen/_14ssp"
         android:textColor="#00a79d"
         tools:text="James Smith"
         />
@@ -40,11 +49,12 @@
         android:fontFamily="@font/montserrat_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="@dimen/_14ssp"
         android:textColor="#8a000000"
         tools:text="+1 123 456 7890"
         />
     <View
+        android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1ssp"
         app:layout_constraintStart_toStartOf="parent"

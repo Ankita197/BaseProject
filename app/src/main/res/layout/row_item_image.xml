@@ -27,7 +27,7 @@
                 android:layout_marginBottom="@dimen/_15sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvBusinessName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,9 +36,8 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:fontFamily="@font/montserrat_regular"
-                android:textSize="14sp"
+                android:textSize="@dimen/_12ssp"
                 android:textColor="#333333"
-                android:lineSpacingExtra="4sp"
                 tools:text="Business name lorem ipsum text"
                 />
                 <ImageView
@@ -52,11 +51,11 @@
                     android:layout_height="wrap_content"
                     />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/_10ssp"
                     android:textColor="#666666"
                     android:lineSpacingExtra="6sp"
                     android:layout_marginStart="@dimen/_5sdp"
@@ -71,7 +70,7 @@
                     android:id="@+id/tvTransactionAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14ssp"
                     android:fontFamily="@font/montserrat_semibold"
                     app:layout_constraintStart_toEndOf="@+id/tvDate"
                     app:layout_constraintTop_toBottomOf="@+id/tvBusinessName"
@@ -87,19 +86,35 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnState"
                     app:layout_constraintStart_toEndOf="@id/tvTransactionAmount"
+                    app:layout_constraintEnd_toStartOf="@+id/ivNotes"
                     app:layout_constraintBottom_toBottomOf="@+id/tvTransactionAmount"
                     app:layout_constraintTop_toTopOf="@+id/tvTransactionAmount"
                     android:insetTop="@dimen/space_0dp"
                     android:insetBottom="@dimen/space_0dp"
-                    android:layout_marginStart="@dimen/_34sdp"
                     android:paddingTop="@dimen/space_0dp"
                     android:paddingBottom="@dimen/space_0dp"
+                    android:textSize="@dimen/_10ssp"
                     android:text="Success"
                     app:cornerRadius="@dimen/_10sdp"
                     android:textAllCaps="false"
                     android:backgroundTint="#8fd475"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_20sdp"/>
+
+                <ImageView
+                    android:id="@+id/ivNotes"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:layout_marginEnd="@dimen/_14sdp"
+                    android:background="@drawable/oval_image"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_notes"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                 />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

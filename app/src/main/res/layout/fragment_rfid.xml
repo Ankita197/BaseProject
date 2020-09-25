@@ -47,6 +47,7 @@
         android:layout_marginBottom="@dimen/_16sdp"
         android:textAlignment="center"
         android:text="Submit"
+        android:textSize="@dimen/_14ssp"
         app:layout_constraintTop_toBottomOf="@+id/spinnerDeviceType"
         app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
         app:layout_constraintStart_toStartOf="@id/guideLineBegin" />
@@ -56,7 +57,7 @@
         android:layout_marginTop="@dimen/_22sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserrat_semibold"
         android:textColor="#333333"
         android:lineSpacingExtra="4sp"
@@ -65,10 +66,12 @@
         app:layout_constraintTop_toBottomOf="@+id/btnSubmit"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:clipToPadding="true"
+        android:paddingBottom="@dimen/_10ssp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/rvItemDevices"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/tvListOfDevices"
         app:layout_constraintStart_toStartOf="@id/guideLineBegin"
         app:layout_constraintEnd_toEndOf="@id/guideLineEnd"/>

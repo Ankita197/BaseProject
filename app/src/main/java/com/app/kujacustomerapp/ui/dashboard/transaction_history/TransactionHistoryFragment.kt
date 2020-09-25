@@ -36,29 +36,11 @@ open class TransactionHistoryFragment() : BaseBindingFragment<FragmentTransactio
 
     override fun initViews() {
         setTabsItem()
+        binding?.transactionViewModel=transactionViewModel
         transactionViewModel?.getTransactionData()
         setTabSelectedListner()
-        setButtonClick()
     }
 
-    private fun setButtonClick() {
-        //        btnViewTransaction.setOnClickListener(object :View.OnClickListener{
-//            override fun onClick(v: View?) {
-//                if(position==1) {
-//                    filteredList= listOfDate.filter {  getMonth(it)==selectedMonth}
-//                    setNewList(filteredList)
-//                }
-//                if(position==3){
-//                    Log.d("___@___","date is"+getDate())
-//                    filteredList= listOfDate.filter { it == getDate() }
-//                    for(data in filteredList){
-//                        Log.d("___@___","date is"+getDate())
-//                    }
-//                    setNewList(filteredList)
-//                }
-//            }
-//        })
-    }
 
 
     //set tab item in tab layout
@@ -70,19 +52,7 @@ open class TransactionHistoryFragment() : BaseBindingFragment<FragmentTransactio
         tlItemTransaction!!.tabGravity = TabLayout.GRAVITY_FILL
     }
 
-//    private fun setNewList(filteredList: List<String>) {
-//        for(data in list){
-//            for (trxDate in filteredList){
-//                if(trxDate.equals(data.trxDate?.let { setDate(it) })){
-//                    if(!newTransactionDataList.contains(data)) {
-//                        newTransactionDataList.add(data)
-//                    }
-//                }
-//            }
-//        }
-//        itemTransactionAdapter?.clear()
-//        itemTransactionAdapter?.setList(newTransactionDataList)
-//    }
+
 
 
 

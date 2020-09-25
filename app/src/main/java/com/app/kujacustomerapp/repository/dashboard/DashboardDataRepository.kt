@@ -7,8 +7,10 @@ import com.app.kujacustomerapp.remote.base.BaseResponse
 import com.app.kujacustomerapp.remote.base.CommonRetrofit
 import com.app.kujacustomerapp.remote.entity.request.account.MakePaymentRequest
 import com.app.kujacustomerapp.remote.entity.request.account.ReIssueRequest
+import com.app.kujacustomerapp.remote.entity.request.account.SecurityQuestionRequestUpdate
 import com.app.kujacustomerapp.remote.entity.response.dashboard.DashboardData
 import com.app.kujacustomerapp.remote.entity.response.dashboard.MakePaymentResponse
+import com.app.kujacustomerapp.remote.entity.response.dashboard.SecurityQuestionUpdateResponse
 import com.app.kujacustomerapp.remote.entity.response.dashboard.TransactionData
 import com.app.kujacustomerapp.remote.entity.response.rfid.DeviceData
 import com.google.gson.Gson
@@ -143,6 +145,28 @@ class DashboardDataRepository @Inject constructor(var  dashboardSharedPrefs: Das
             }
 
         })
+    }
+
+    override fun callUpdateSecurityQuestion(
+        securityQuestionRequestUpdate: SecurityQuestionRequestUpdate,
+        eneque: Enqueue<SecurityQuestionUpdateResponse?>?
+    ) {
+        getNetworkService()?.UpdateSecurityQuestion(securityQuestionRequestUpdate)?.enqueue(object :Callback<BaseResponse<SecurityQuestionUpdateResponse>> {
+            override fun onFailure(
+                call: Call<BaseResponse<SecurityQuestionUpdateResponse>>,
+                t: Throwable
+            ) {
+                eneque?.onError(call,t)
+            }
+
+            override fun onResponse(
+                call: Call<BaseResponse<SecurityQuestionUpdateResponse>>,
+                response: Response<BaseResponse<SecurityQuestionUpdateResponse>>
+            ) {
+                eneque?.onSuccess(call,response.body()?.data)
+            }
+        })
+
     }
 
 

@@ -19,5 +19,10 @@ class AccountSharedPrefs(context: Context?) : BaseSharedPrefs(context!!) {
     override val preferencesGroup: String
         get() = "AccountSharedPrefs"
 
+    var profileData: String?
+        get() = getString(PreferenceKey.PREF_PROFILE_DATA)
+        set(userData) {
+            put(PreferenceKey.PREF_PROFILE_DATA, userData)
+        }
 
 }

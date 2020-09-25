@@ -33,10 +33,12 @@ class TransactionViewModel @Inject constructor(application: Application,private 
 
     fun getTransactionData(){
 
-
+    showProgress=true
     dashboardDataRepository.callGetAllTransactionData(1,startDate,endDate,object :
         Enqueue<ArrayList<TransactionData>>{
+
         override fun onSuccess(call: Call<*>, response: ArrayList<TransactionData>) {
+            showProgress=false
             successLiveData.postValue(
                 Event(
                 response
@@ -45,6 +47,7 @@ class TransactionViewModel @Inject constructor(application: Application,private 
         }
 
         override fun onError(call: Call<*>, t: Throwable) {
+            showProgress=false
             if (t is AppHttpException) {
                 errorLiveData.postValue(
                     Event(

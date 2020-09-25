@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -32,11 +33,16 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
     var drawerToggle:ActionBarDrawerToggle?=null
 
+    companion object{
+        var  toolbar: Toolbar?=null
+
+    }
+
+
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     var dashboardViewModel: DashboardViewModel? = null
     var   customLayout:View?=null
-
 
     @Inject
     lateinit var accountSharedPrefs: AccountSharedPrefs
@@ -53,28 +59,29 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
             ViewModelProviders.of(this, factory).get(DashboardViewModel::class.java)
     }
 
-    override fun initView(): kotlin.Unit {
 
+
+    override fun initView(): kotlin.Unit {
+        DashboardActivity.toolbar=toolbar
         setSupportActionBar(toolbar)
-        supportActionBar?.title="Profile"
+        supportActionBar?.title="Transaction History"
         initLogoutDialog()
         toolbar.setTitleTextColor(resources.getColor(android.R.color.white))
+        toolbar.setNavigationIcon(R.drawable.menu)
         drawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close)
         drawerToggle?.isDrawerIndicatorEnabled=false
         setIconClickListner()
-        drawerToggle?.setHomeAsUpIndicator(R.drawable.menu);
-        switchFragment(DashboardFragment(), false, FragmentTagUtils.DASHBOARD_FRAGMENT)
+        switchFragment(TransactionHistoryFragment(), false, FragmentTagUtils.TRANSACTION_HISTORY_FRAGMENT)
         navView.setNavigationItemSelectedListener(this)
         initObservals()
         setDialogBalance()
     }
 
     private fun setIconClickListner() {
-        drawerToggle?.toolbarNavigationClickListener = object : View.OnClickListener {
-            override  fun onClick(view: View?) {
-                drawerLayout.openDrawer(GravityCompat.START)
-            }
-        }
+        toolbar.setNavigationOnClickListener(View.OnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        })
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -97,6 +104,10 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.checkBalance->{
                 dashboardViewModel?.checkMyBalance()
+            }
+            R.id.profile->{
+                supportActionBar?.title="Profile"
+                switchFragment(DashboardFragment(), false, FragmentTagUtils.DASHBOARD_FRAGMENT)
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
